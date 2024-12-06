@@ -18,59 +18,63 @@ model User {
   username   String    @unique
   email      String    @unique
   password   String
-  bio        String?
+  // bio        String?
   posts      Post[]
-  comments   Comment[]
-  likes      Like[]
-  followers  Follower[] @relation("Following")
-  following  Follower[] @relation("Follower")
-  trips      Trip[]
+  // comments   Comment[]
+  // likes      Like[]
+  // followers  Follower[] @relation("Following")
+  // following  Follower[] @relation("Follower")
+  // trips      Trip[]
 }
 
 model Post {
-  postId     Int       @id @default(autoincrement())
-  userId     Int
-  imageUrl   String
-  caption    String?
-  user       User      @relation(fields: [userId], references: [userId])
-  tripId     Int?
-  trip       Trip?     @relation(fields: [tripId], references: [tripId])
-  comments   Comment[]
-  likes      Like[]
+  postId      Int       @id @default(autoincrement())
+  userId      Int
+  imageUrl    String
+  title       String?
+  description String?
+  user        User      @relation(fields: [userId], references: [userId])
+  tripId      Int?
+  // trip        Trip?     @relation(fields: [tripId], references: [tripId])
+  startDate   DateTime
+  endDate     DateTime
+  rating      Int
+  // comments   Comment[]
+  // likes       Like[]
 }
 
-model Comment {
-  commentId    Int      @id @default(autoincrement())
-  postId       Int
-  userId       Int
-  commentText  String
-  post         Post     @relation(fields: [postId], references: [postId])
-  user         User     @relation(fields: [userId], references: [userId])
-}
+// model Follower {
+//   followerId       Int      @id @default(autoincrement())
+//   userId           Int
+//   followerUserId   Int
+//   // user             User     @relation(name: "Following", fields: [userId], references: [userId])
+//   follower         User     @relation(name: "Follower", fields: [followerUserId], references: [userId])
+// }
+// model Comment {
+//   commentId    Int      @id @default(autoincrement())
+//   postId       Int
+//   userId       Int
+//   commentText  String
+//   post         Post     @relation(fields: [postId], references: [postId])
+//   user         User     @relation(fields: [userId], references: [userId])
+// }
 
-model Like {
-  likeId       Int      @id @default(autoincrement())
-  postId       Int
-  userId       Int
-  post         Post     @relation(fields: [postId], references: [postId])
-  user         User     @relation(fields: [userId], references: [userId])
-}
+// model Like {
+//   likeId       Int      @id @default(autoincrement())
+//   postId       Int
+//   userId       Int
+//   post         Post     @relation(fields: [postId], references: [postId])
+//   user         User     @relation(fields: [userId], references: [userId])
+// }
 
-model Follower {
-  followerId       Int      @id @default(autoincrement())
-  userId           Int
-  followerUserId   Int
-  user             User     @relation(name: "Following", fields: [userId], references: [userId])
-  follower         User     @relation(name: "Follower", fields: [followerUserId], references: [userId])
-}
 
-model Trip {
-  tripId       Int      @id @default(autoincrement())
-  userId       Int
-  tripName     String
-  description  String?
-  startDate    DateTime
-  endDate      DateTime
-  user         User     @relation(fields: [userId], references: [userId])
-  posts        Post[]
-}
+// model Trip {
+//   tripId       Int      @id @default(autoincrement())
+//   userId       Int
+//   tripName     String
+//   description  String?
+//   startDate    DateTime
+//   endDate      DateTime
+//   user         User     @relation(fields: [userId], references: [userId])
+//   posts        Post[]
+// }
