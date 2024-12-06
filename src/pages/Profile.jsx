@@ -1,4 +1,4 @@
-//User profile page (for viewing profile but not necessarily for creating or editing the profile)
+//User profile page (for viewing profile, not necessarily for creating or editing the profile)
 
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/client.js";      //replace axios 
