@@ -34,7 +34,7 @@ model Post {
   title       String?
   description String?
   user        User      @relation(fields: [userId], references: [userId])
-  tripId      Int?
+  // tripId      Int?
   // trip        Trip?     @relation(fields: [tripId], references: [tripId])
   startDate   DateTime
   endDate     DateTime
