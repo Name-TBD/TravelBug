@@ -1,0 +1,1 @@
+//Posts functionality includes users posting images, title, description. Not inclusive of searching posts!
