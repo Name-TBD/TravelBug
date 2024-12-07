@@ -1,1 +1,1 @@
-//Posts functionality includes users posting images, title, description. Not inclusive of searching posts!
+//Posts functionality includes users interacting with posts to make comments, likes, etc. 
