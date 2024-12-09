@@ -3,9 +3,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 
-import NavBar from "./landingpage/NavBar";
-import Homepage from "./landingpage/Homepage";
-import AccountDetails from "./landingpage/AccountDetails";
+import NavBar from "./pages/NavBar";
+import Homepage from "./pages/Homepage";
+import AccountDetails from "./pages/AccountDetails";
 import './App.css'
 
 const App = () => {
