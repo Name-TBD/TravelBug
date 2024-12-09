@@ -7,6 +7,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY;
 
+
+//register a new user
 router.post('/register', async (req, res) => {
   const { email, username, password, firstname, lastname } = req.body;
 
@@ -29,6 +31,8 @@ router.post('/register', async (req, res) => {
   }
 });
 
+
+//login a user
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
