@@ -15,7 +15,7 @@ app.use(express.json());
 // use the routes
 
 app.use('/auth', authRoutes);
-app.use('/auth', postRoutes);
+app.use('/post', postRoutes);
 app.use('/users', usersRoutes);
 
 // Start the server
