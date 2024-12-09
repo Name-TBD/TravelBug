@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@prisma/client": "^6.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
