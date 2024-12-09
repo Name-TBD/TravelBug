@@ -1,0 +1,117 @@
+/* Reset some default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container for the landing page */
+.container {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Image styling */
+img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+  margin-top: 20px;
+  text-align: left;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff7f50; 
+}
+
+/* Button styling */
+button {
+  background-color: #ff7f50; 
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #e67e22;
+}
+
+/* Section styling for content */
+section {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Styling for the registration link */
+a {
+  color: #ff7f50; /* Orange color */
+  text-decoration: none; /* Remove underline */
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline; /* Add underline when hovered */
+}
