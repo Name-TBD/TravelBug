@@ -1,20 +1,46 @@
+const express = require('express');
+const { PrismaClient} = require('@prisma/client');
+const authenticateToken = require('../middleware/authMiddleware');
 
-
-/*dummy
-
-import express from "express";
-import { getFeedPosts, getUserPosts, likePost } from "../controllers/posts.js";
-import { verifyToken } from "../middleware/auth.js";
-
+const prisma = new PrismaClient();
 const router = express.Router();
 
-/* READ */
-//router.get("/", verifyToken, getFeedPosts);
-//router.get("/:userId/posts", verifyToken, getUserPosts);
+// create a new post
 
-/* UPDATE */
-//router.patch("/:id/like", verifyToken, likePost);
+router.post('/', authenticateToken, async(req, res, next) => {
+  const {userId, imageUrl, title, description, startDate, endDate, rating} = req.body
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        userId,
+        imageUrl,
+        title,
+        description,
+        rating,
+        startDate,
+        endDate
+      }
+    });
+    res.status (201).json(newPost);
+  }catch(error){
+    res.status(400).json({ error: error.message});
+  }
+});
 
-//export default router;
+//get all posts
 
+router.get('/', async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: true,
+      },
+    });
 
+    res.json(posts);
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to fetch posts' });
+  }
+});
+
+module.exports = router;
