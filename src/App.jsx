@@ -1,22 +1,25 @@
-//Import landingpage components, and establish routes
-
-import { Routes, Route } from "react-router-dom";
-import { useState } from 'react';
-
-import NavBar from "./pages/NavBar";
-import Homepage from "./pages/Homepage";
-import AccountDetails from "./pages/AccountDetails";
-import './App.css'
+import React from "react"
+import { Routes, Route } from "react-router-dom"
+import BookList from "./pages/Booklist"
+import BookDetails from "./pages/BookDetails"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Account from "./pages/Account"
+import NavBar from "./Navbar"
+import './index.css'
 
 const App = () => {
-  
+
   return (
     <>
-      <NavBar logOutButton={token ? <button id="logout-button" onClick={logOut}>Log Out</button> : null} />
+      <NavBar />
       <h1>TravelBugs</h1>
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/accountdetails" element={<AccountDetails />} />  
+        <Route path="/" element={<BookList />} />
+        <Route path="/books/:id" element={<BookDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
        </>
   )
