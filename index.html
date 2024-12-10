@@ -1,64 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Bugs</title>
-  <link rel="stylesheet" href="src/styles.css">
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome to TravelBugs</h1>
-    <img src="src/assets/TravelBugslogo.png" alt="TravelBugs logo" />
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TravelBugs</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  </html>
+  
+  
 
-    <!-- User details section with form fields for email and password -->
-    <section>
-      <h2 id="welcome-message">Welcome back, <span id="user-name">User</span>!</h2>
 
-      <!-- Form for email and password input -->
-      <form id="user-form">
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required>
-        </div>
-        <button type="submit" id="login-button">Log In</button>
-      </form>
 
-      <!-- Section for "View Inspiring Journeys" button -->
-      <button id="view-travels-button" onclick="window.location.href='/travelcatalog/'">View Inspiring Journeys</button>
-      <p>Don't have an account? <a href="/register" id="register-link">Click here to register</a></p>
-    </section>
-  </div>
 
-  <script>
-    // Example dynamic content: Replace with real user data if necessary
-    document.addEventListener("DOMContentLoaded", function() {
-      const username = "John Doe"; // Example dynamic value
-      const userEmail = "john.doe@example.com"; // Example dynamic value
 
-      // Set the username dynamically
-      document.getElementById("user-name").textContent = username;
-      document.getElementById("email").value = userEmail; // Set email field dynamically
-    });
-
-    // Handle form submission (email and password)
-    document.getElementById("user-form").addEventListener("submit", function(event) {
-      event.preventDefault(); // Prevent page reload on form submit
-
-      // Get the email and password entered by the user
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      // Example logic to handle login (this can be replaced with actual login logic)
-      console.log("User Email:", email);
-      console.log("User Password:", password);
-
-      // You can add additional logic for authentication or redirection after login
-    });
-  </script>
-</body>
-</html>
