@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const numUsers = 5;
-const numPosts = 10;
+const numUsers = 50;
+const numPosts = 100;
 
 async function seed() {
   try {
