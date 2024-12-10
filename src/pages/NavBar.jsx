@@ -1,19 +1,17 @@
-//Navbar lets user select homepage or account for login/registration
-//The Travel Catalogue link is a placeholder and need to be connected to Faker's travel imagery
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
 
-const NavBar = ({ logOutButton }) => {
+const NavBar = () => {
   return (
-    <>
-      <nav id="navbar">
+    <nav>
         <Link to="/">Home</Link>
-        <Link to="/travelcatalog">Travel Catalogue</Link>   
-        <Link to="/accountdetails">Account</Link>
-        {logOutButton}
-      </nav>
-    </>
-  );
-};
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/account">Account</Link>
+        <Link to="/myprofile">MyProfile</Link>
+        <Link to="/feed">Feed</Link>
+    </nav>
+  )
+}
 
-export default NavBar;
+export default NavBar
