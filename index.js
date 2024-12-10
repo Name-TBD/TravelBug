@@ -1,8 +1,14 @@
+
+
 const express = require('express')
 const dotenv = require('dotenv');
 const authRoutes = require('./src/routes/auth');
 const postRoutes = require('./src/routes/posts')
 const usersRoutes = require('./src/routes/users')
+const uploadRoutes = require('.src/routes/upload'); // Added upload path for processing files during post creation
+
+
+
 
 // Load environment variables
 
@@ -17,6 +23,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/post', postRoutes);
 app.use('/users', usersRoutes);
+app.use('/upload', uploadRoutes);   //Added upload path for processing files during post creation
 
 // Start the server
 
