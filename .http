@@ -1,0 +1,59 @@
+@host = http://localhost:3000
+### User Registration
+POST {{host}}/register
+Content-Type: application/json
+
+{
+  "email": "random@example.com",
+  "username": "random",
+  "password": "random123",
+  "firstname": "Ran",
+  "lastname": "Dom"
+
+}
+
+---
+
+### User Login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "email": "random@example.com",
+  "password": "random123"
+}
+
+---
+
+### Get all users
+GET {{host}}/users
+Content-Type: application/json
+
+---
+
+### Get single user
+GET {{host}}/users/1
+
+---
+
+### Create a New Post
+
+POST {{host}}/post
+Content-Type: application/json
+Authorization: Bearer {{token}} 
+
+{
+  "userId" : 1,
+  "imageUrl": "http://example.com/travel-image.jpg",
+  "title": "Trip to Vietnam",
+  "description" : " A memorable trip exploring Vietnamese's food",
+  "startDate": "2024-06-01",
+  "endDate": "2024-09-01",
+  "rating": 5
+}
+
+### Get All Posts
+GET {{host}}/post
+
+### Get Specific Post
+GET {{host}}/post/1
