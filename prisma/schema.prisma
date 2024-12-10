@@ -18,8 +18,10 @@ model User {
   username   String    @unique
   email      String    @unique
   password   String
-  // bio        String?
+  firstName  String?
+  lastName   String?
   posts      Post[]
+  // bio        String?
  // comments   Comment[]
  // likes      Like[]
   // followers  Follower[] @relation("Following")

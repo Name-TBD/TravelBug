@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const numUsers = 5;
-const numPosts = 10;
+const numUsers = 50;
+const numPosts = 100;
 
 async function seed() {
   try {
@@ -19,9 +19,10 @@ async function seed() {
         data: {
           email: faker.internet.email(),
           username: faker.internet.username(),
-          password: await bcrypt.hash('password123', 10), // Hash passwords
-          firstname: faker.person.firstName(),
-          lastname: faker.person.lastName(),
+          password: await bcrypt.hash('password123', 10), // You should hash passwords in a real app
+          firstName: faker.person.firstName(),
+          lastName: faker.person.lastName(),
+
         },
       });
 
@@ -30,12 +31,12 @@ async function seed() {
         await prisma.post.create({
           data: {
             userId: user.userId,
-            imageUrl: faker.image.imageUrl(),
+            imageUrl: faker.image.url(),
             title: faker.lorem.sentence(),
             description: faker.lorem.paragraph(),
             startDate: faker.date.past(),
             endDate: faker.date.future(),
-            rating: faker.datatype.number({ min: 1, max: 5 }),
+            rating: faker.number.int({ min: 1, max: 5 }),
           },
         });
       }
