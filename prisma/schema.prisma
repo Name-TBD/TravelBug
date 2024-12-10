@@ -20,8 +20,8 @@ model User {
   password   String
   // bio        String?
   posts      Post[]
-  // comments   Comment[]
-  // likes      Like[]
+ // comments   Comment[]
+ // likes      Like[]
   // followers  Follower[] @relation("Following")
   // following  Follower[] @relation("Follower")
   // trips      Trip[]
@@ -39,8 +39,8 @@ model Post {
   startDate   DateTime
   endDate     DateTime
   rating      Int
-  // comments   Comment[]
-  // likes       Like[]
+  comments   Comment[]
+  likes       Like[]
 }
 
 // model Follower {
