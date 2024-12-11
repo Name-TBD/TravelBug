@@ -1,11 +1,11 @@
-const express = require('express');
-const path = require('path');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const authRoutes = require('./src/routes/auth');
-const postRoutes = require('./src/routes/posts');
-const usersRoutes = require('./src/routes/users');
-const uploadRoutes = require('./src/routes/upload'); // Corrected the upload path
+import express from 'express';
+import path from 'path';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import authRoutes from './src/routes/auth.js';
+import postRoutes from './src/routes/posts.js';
+import usersRoutes from './src/routes/users.js';
+import uploadRoutes from './src/routes/upload.js'; // Corrected the upload path
 
 // Load environment variables
 dotenv.config();
@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors({ origin: 'https://travelbugthugs.netlify.app' })); 
+app.use(cors({ origin: 'https://travelbugthugs.netlify.app' }));
 app.use(express.json());
 
 // Serve static files from the "dist" directory
