@@ -15,19 +15,20 @@ async function seed() {
 
     // Seed users
     for (let i = 0; i < numUsers; i++) {
-      const user = await prisma.user.create({
-        data: {
+      const user = await prisma.user.upsert({
+        where: { email: faker.internet.email() }, // Adjust the unique field here
+        update: {}, // No updates if the user already exists
+        create: {
           email: faker.internet.email(),
           username: faker.internet.username(),
-          password: await bcrypt.hash('password123', 10), // You should hash passwords in a real app
+          password: await bcrypt.hash('password123', 10),
           firstName: faker.person.firstName(),
           lastName: faker.person.lastName(),
-
         },
       });
 
       // Seed posts for each user
-      for (let j = 0; j < numPosts; j++) {
+      for (let j = 0; j < numPosts / numUsers; j++) { // Adjust the number of posts per user
         await prisma.post.create({
           data: {
             userId: user.userId,
