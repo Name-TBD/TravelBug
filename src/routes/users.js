@@ -1,11 +1,10 @@
-const express = require('express');
-const {PrismaClient} = require('@prisma/client');
+import express from 'express';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const router = express.Router();
 
-
-// get all users
+// Get all users
 router.get('/', async (req, res) => {
   const users = await prisma.user.findMany();
   res.json(users);
@@ -16,7 +15,7 @@ router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const user = await prisma.user.findUnique({
-      where: { userId: Number(id) }
+      where: { userId: Number(id) },
     });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -27,4 +26,4 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

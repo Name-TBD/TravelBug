@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { PrismaClient } = require('@prisma/client');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY;
 
+const router = express.Router();
 
-//register a new user
+// Register a new user
 router.post('/register', async (req, res) => {
   const { email, username, password, firstname, lastname } = req.body;
 
@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
         username,
         password: hashedPassword,
         firstname,
-        lastname
+        lastname,
       },
     });
 
@@ -31,8 +31,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
-//login a user
+// Login a user
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -50,4 +49,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
