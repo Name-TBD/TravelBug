@@ -2,6 +2,7 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import authenticateToken from '../middleware/authMiddleware';
 
+
 const prisma = new PrismaClient();
 const router = express.Router();
 
