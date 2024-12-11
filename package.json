@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "seed": "node prisma/seed.js",
+    "start": "node index.js"
     "start": "vite preview --port $PORT"  
   },
   "dependencies": {
