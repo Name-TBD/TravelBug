@@ -6,12 +6,17 @@ import authRoutes from './src/routes/auth.js';
 import postRoutes from './src/routes/posts.js';
 import usersRoutes from './src/routes/users.js';
 import uploadRoutes from './src/routes/upload.js'; // Corrected the upload path
+import { fileURLToPath } from 'url';
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Get the __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors({ origin: 'https://travelbugthugs.netlify.app' }));
