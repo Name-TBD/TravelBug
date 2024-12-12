@@ -6,7 +6,6 @@ import Home from './components/Homepage';
 import Navbar from './components/NavBar';
 import Account from './components/Account';
 import AccountDetails from './components/AccountDetails';
-import Test from './components/Test';
 import CreatePost from './components/CreatePost';
 import MyProfile from './components/MyProfile';
 
