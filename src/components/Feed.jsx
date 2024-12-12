@@ -79,8 +79,7 @@ const Feed = () => {    //"Posts.jsx" --> "Feed.jsx"
         </div>
       ))}
     </div>
-  );
-};
+
 
 export default Feed;
 
