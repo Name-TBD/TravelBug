@@ -1,73 +1,71 @@
-//DIsplays a user's profile page in the app. It fetches the users data, profile pic, cover img, username, descrip forman api and displays it. //The Feed is imported and rendered for the user alone. 
 
 
+import React, { useState } from "react";
+import CreatePost from "./CreatePost";
 
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";   
-import Feed from "../Feed.jsx";         //Renders the user's posts only 
-import styles from "../../styles/profile.module.css";
+const MyProfile = () => {
+    // Mock user data
+    const [user] = useState({
+        userId: 1,
+        username: "johndoe",
+        email: "johndoe@example.com",
+        firstName: "John",
+        lastName: "Doe"
+    });
 
+    // Mock posts data
+    const [posts, setPosts] = useState([
+        {
+            postId: 1,
+            title: "My Trip to Paris",
+            imageUrl: "https://example.com/paris.jpg",
+            description: "Had an amazing time visiting the Eiffel Tower!",
+            rating: 5,
+            startDate: "2023-05-01",
+            endDate: "2023-05-07"
+        },
+        {
+            postId: 2,
+            title: "Beach Vacation in Bali",
+            imageUrl: "https://example.com/bali.jpg",
+            description: "Relaxing on the beautiful beaches of Bali.",
+            rating: 4,
+            startDate: "2023-07-15",
+            endDate: "2023-07-22"
+        }
+    ]);
 
-export default function MyProfile() {
-    const [user, setUser] = useState({});
-    const username = useParams().username;
+    // Function to add a new post (for demonstration)
+    const addPost = (newPost) => {
+        setPosts([...posts, { ...newPost, postId: posts.length + 1 }]);
+    };
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const userId = localStorage.getItem("userId"); // Fetch user data and store in user state. Assume userId is stored locally
-                const response = await fetch(`/users/${userId}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const userData = await response.json();
-                setUser(userData);
-            } catch (err) {
-                console.error("Error fetching user:", err);
-            }
-        };
-
-        fetchUser();
-    }, []);
-
-
-
-    return (                //Profile, cover, user images and info rendered. Feed is below. Removed Topbar, Sidebar, and Bottombar navigation
-        <>
-        <div className={styles.profile}>
-            <div className={styles.profileRight}>
-                <div className={styles.profileRightTop}>
-                    <div className={styles.profileCover}>
-                        <img
-                            className={styles.profileCoverImage}
-                            src={
-                                user.coverPicture || "/defaultCover.jpg"
-                            }
-                            alt=""
-                        />
-                        <img
-                            className={styles.profileUserImage}
-                            src={
-                                user.profilePicture || "/defaultProfile.jpg"
-                            }
-                            alt=""
-                        />
-                    </div>
-                    <div className={styles.profileInfo}>
-                        <h4 className={styles.profileInfoName}>{user.username}</h4>
-                        <h4 className={styles.profileInfoDesc}>{user.desc}</h4>
-
-                    </div>
-                </div>
-                <div className={styles.profileRightBottom}>
-                    {/* {username} */}
-                    <Feed username={username} />     
-                </div>
+    return (
+        <div className="account-details">
+            <h2>Welcome, {user.username}!</h2>
+            <div className="user-info">
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>First Name:</strong> {user.firstName}</p>
+                <p><strong>Last Name:</strong> {user.lastName}</p>
             </div>
+
+            <h3>Your Posts</h3>
+            <div className="user-posts">
+                {posts.map(post => (
+                    <div key={post.postId} className="post">
+                        <h4>{post.title}</h4>
+                        <img src={post.imageUrl} alt={post.title} className="post-image" />
+                        <p>{post.description}</p>
+                        <p>Rating: {post.rating}/5</p>
+                        <p>From: {new Date(post.startDate).toLocaleDateString()} To: {new Date(post.endDate).toLocaleDateString()}</p>
+                    </div>
+                ))}
+            </div>
+
+            <h3>Create a New Post</h3>
+            <CreatePost onPostCreated={addPost} />
         </div>
-    </>
-)
-}
+    );
+};
 
-
-
+export default MyProfile;

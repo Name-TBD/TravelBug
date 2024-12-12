@@ -1,142 +1,150 @@
-//CreatePost (Share) creates a new post with title, file/img, descript etc for the user and uploads to db via routes. (To be rendered in Feed)
 
-import { useEffect, useRef, useState } from 'react';
-import styles from "../styles/share.module.css";
-import profilePic from "../assets/blank-profile-picture.png";  //downloaded on desktop how to upload here?
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function CreatePost() {          
-    const [user, setUser] = useState(null); 
-    const desc = useRef();
-    const [file, setFile] = useState(null);
+const CreatePost = () => {
+  const [userId, setUserId] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [rating, setRating] = useState(1);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const userId = localStorage.getItem("userId"); // Fetch user data and store in user state. Assume userId is stored locally
-                const response = await fetch(`/users/${userId}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const userData = await response.json();
-                setUser(userData);
-            } catch (err) {
-                console.error("Error fetching user:", err);
-            }
-        };
-
-        fetchUser();
-    }, []);
-
-    
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
-        if (!user) {
-            console.error("User data is not available");
-            return;
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/users/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
         }
-
-        const newPost = {           //Create a new post object with userID & descrip. Below are default placeholder titles.
-            userId: user.userId,
-            description: desc.current.value,
-            title: "Default Title", 
-            startDate: new Date().toISOString(), 
-            endDate: new Date().toISOString(),   
-            rating: 5, 
-        };
-
-
-        if (file) {
-            const data = new FormData();        //Create a formdata object to send the file to the server and name the file
-            const fileName = Date.now() + file.name; 
-            data.append("file", file);
-            data.append("name", fileName);
-
-            try {
-                const uploadResponse = await fetch('/upload', {     //Create upload.js and made route in index.js in backend to handle file uploads
-                    method: 'POST',
-                    body: data,
-                });
-
-                if (!uploadResponse.ok) {
-                    throw new Error("File upload failed");
-                }
-
-              
-                newPost.imageUrl = fileName; //   // Update the newPost object with the uploaded file's name. Backend will use this to retrieve the file.. // Exit if the upload fails
-            } catch (err) {
-                console.error("Upload error: ", err);
-                return; 
-            }
-        }
-
-
-        try {
-            const token = localStorage.getItem("authToken"); // Fetch token from storage and include below
-            const response = await fetch('/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`, 
-                },
-                body: JSON.stringify(newPost),
-            });
-
-            if (!response.ok) {
-                throw new Error("Post creation failed");
-            }
-            window.location.reload();
-        } catch (err) {
-            console.error("Post creation error:", err);
-        }
+        const userData = await response.json();
+        setUserId(userData.userId);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
 
+    fetchUserId();
+  }, []);
 
-    return (              //Top-level cOntainer and wrapper & user profile pic. 
-        <div className={styles.share}>
-            <div className={styles.shareWrapper}>
-                {user && (           
-                    <div className={styles.shareTop}>
-                        <img
-                            src={user.profilePicture || "../assets/blank-profile-picture.png"}      //Create this asset! Its a Fallback for profile pic. The user.profilepicture is used if available, otherwise a default pic is shown. 
-                            alt=""
-                            className={styles.shareProfileImg}
-                        />
-                        <input
-                            placeholder={`What's happening, ${user.username}?`}
-                            className={styles.shareInput}
-                            ref={desc}
-                        />
-                    </div>
-                )}
-                {file && (
-                    <div className={styles.shareImgContainer}>
-                        <img
-                            className={styles.shareImg}         
-                            src={URL.createObjectURL(file)}     
-                            alt=""
-                        />
-                        <button         //File previews if uploaded above. Buttons to Cancel or to Share. Share button submits the form and triggers the submitHandler
-                            className={styles.shareCancelImg}
-                            onClick={() => setFile(null)}
-                        >Cancel</button>       
-                    </div>
-                )}
-                <form className={styles.shareBottom} onSubmit={submitHandler}>
-                    <label htmlFor="file" className={styles.shareOption}>
-                        <span className={styles.shareOptionText}>Add Photo/Video</span>
-                        <input
-                            type="file"
-                            id="file"
-                            accept=".png,.jpeg,.jpg"
-                            onChange={(e) => setFile(e.target.files[0])}
-                            style={{ display: "none" }}
-                        />
-                    </label> 
-                    <button className={styles.shareButton} type="submit" >      
-                        Share</button>         
-                </form>
-            </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          userId,
+          imageUrl,
+          title,
+          description,
+          startDate,
+          endDate,
+          rating: parseInt(rating)
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create post');
+      }
+
+      const data = await response.json();
+      console.log('Post created:', data);
+      navigate('/profile');
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
+
+  return (
+    <div className="create-post-container">
+      <h2 className="create-post-title">Create a New Post</h2>
+      <form onSubmit={handleSubmit} className="create-post-form">
+        <div className="create-post-field">
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            type="text"
+            className="create-post-input"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-    );
-}
+        <div className="create-post-field">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            className="create-post-input"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="create-post-field">
+          <label htmlFor="imageUrl">Image URL</label>
+          <input
+            id="imageUrl"
+            type="url"
+            className="create-post-input"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            required
+          />
+        </div>
+        <div className="create-post-field">
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            id="startDate"
+            type="date"
+            className="create-post-input"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="create-post-field">
+          <label htmlFor="endDate">End Date</label>
+          <input
+            id="endDate"
+            type="date"
+            className="create-post-input"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="create-post-field">
+          <label htmlFor="rating">Rating</label>
+          <select
+            id="rating"
+            className="create-post-input"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            required
+          >
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+          </select>
+        </div>
+        <button type="submit" className="create-post-submit">Create Post</button>
+      </form>
+    </div>
+  );
+};
+
+export default CreatePost;

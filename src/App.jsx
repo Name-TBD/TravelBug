@@ -2,11 +2,13 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css';
 
-import Home from './pages/Home';
-import NavBar from './pages/NavBar';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Account from './pages/Account';
+import Home from './components/Homepage';
+import Navbar from './components/NavBar';
+import Account from './components/Account';
+import AccountDetails from './components/AccountDetails';
+import Test from './components/Test';
+import CreatePost from './components/CreatePost';
+import MyProfile from './components/MyProfile';
 
 
 
@@ -14,18 +16,24 @@ const App = () => {
 
   return (
     <>
-      <NavBar />
-      <h1>TravelBugs</h1>
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/myprofile" element={<MyProfile />} />
       </Routes>
        </>
   );
 };
 
 export default App;
-    
-    
+
+/*
+<Route path="/postcatalogue" element={<AllPosts />} />
+        <Route path="/postcatalogue/:id" element={<PostDetails />} />
+
+        import AllPosts from './components/AllPosts';
+import PostDetails from './components/PostDetails';
+      */
+
