@@ -4,23 +4,19 @@ import React, { useEffect, useState } from "react";
 import CreatePost from "./CreatePost";
 
 const AccountDetails = () => {
-    const [user, setUser] = useState({
-    userId: 1,
-    username: "testuser",
-    email: "test@example.com",
-    firstName: "Test",
-    lastName: "User"
-  });
+    const [user, setUser] = useState([]);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await fetch('/users/me', {
+                const response = await fetch ('https://travelbug-2.onrender.com/users/me');
+               // const response = await fetch ('https://travelbug-2.onrender.com/users');
+                /* const response = await fetch('/users/me', {
                     headers: {
                         'Authorization': `Bearer ${token}`
-                    }
+                    }   */
                 });
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
@@ -35,10 +31,12 @@ const AccountDetails = () => {
         const fetchUserPosts = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const response = await fetch('/post', {
+               const reponse = await fetch ('https://travelbug-2.onrender.come/post');
+               //const reponse = await fetch ('https://travelbug-2.onrender.come/post/1');
+               /* const response = await fetch('/post', {
                     headers: {
                         'Authorization': `Bearer ${token}`
-                    }
+                    }   */
                 });
                 if (!response.ok) {
                     throw new Error("Failed to fetch user posts");
