@@ -27,3 +27,51 @@ export const getUserDetails = async (token) => {
   });
   return await response.json();
 };
+
+// Add functionality for fetching comments and likes
+export const addComment = async (postId, commentData, token) => {
+  const response = await fetch(`${APIURL}/posts/${postId}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(commentData),
+  });
+  return await response.json();
+};
+
+export const getComments = async (postId) => {
+  const response = await fetch(`${APIURL}/posts/${postId}/comments`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  return await response.json();
+};
+
+export const likePost = async (postId, token) => {
+  const response = await fetch(`${APIURL}/posts/${postId}/likes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return await response.json();
+};
+
+export const unlikePost = async (postId, token) => {
+  await fetch(`${APIURL}/posts/${postId}/likes`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const getLikes = async (postId) => {
+  const response = await fetch(`${APIURL}/posts/${postId}/likes`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  return await response.json();
+};
