@@ -16,6 +16,7 @@ const Account = () => {
         const response = await fetch("https://travelbug-2.onrender.com/users/me", {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
