@@ -8,9 +8,10 @@ const Account = () => {
         registerUsername: '',
         registerPassword: '',
         inputUsername: '',
-        inputPassword: ''
+        inputPassword: '',
     });
-    const [isLoggedIn, setIsLoggedIn] = useState(false); //change this back to false!
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -18,44 +19,36 @@ const Account = () => {
     }, []);
 
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
-  const register = async (e) => {
+    const register = async (e) => {
         e.preventDefault();
-       
-       /* try {
-            const response = await fetch('/auth/register', {
+
+        try {
+            const response = await fetch('https://travelbug-2.onrender.com/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    name: formData.registerName, 
+                    name: formData.registerName,
                     email: formData.registerEmail,
                     username: formData.registerUsername,
-                    password: formData.registerPassword
+                    password: formData.registerPassword,
                 }),
-            }); */
-
-            try {
-                const response = await fetch('https://travelbug-2.onrender.com/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: registerName,
-                        email: registerEmail,
-                        username: registerUsername,
-                        password: registerPassword
-                    }),
-                });
+            });
 
             const data = await response.json();
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 setIsLoggedIn(true);
             } else {
-                console.error('Registration failed', data);
+                console.error('Registration failed:', data.message || 'Unknown error');
             }
         } catch (error) {
             console.error('Error during registration:', error);
@@ -64,28 +57,18 @@ const Account = () => {
 
     const login = async (e) => {
         e.preventDefault();
-        
-        /* try {
-            const response = await fetch('/auth/login', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    email: formData.inputUsername,
-                    password: formData.inputPassword
-                })
-            });  */
 
-            try {
-                const userResponse = await fetch('https://travelbug-2.onrender.com/login', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username: inputUsername,
-                        password: inputPassword
-                    })
-                });
+        try {
+            const response = await fetch('https://travelbug-2.onrender.com/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: formData.inputUsername,
+                    password: formData.inputPassword,
+                }),
+            });
 
             const data = await response.json();
             if (response.ok) {
@@ -93,7 +76,7 @@ const Account = () => {
                 localStorage.setItem('username', formData.inputUsername);
                 setIsLoggedIn(true);
             } else {
-                console.error('Login failed:', data);
+                console.error('Login failed:', data.message || 'Unknown error');
             }
         } catch (error) {
             console.error('Error during login:', error);
@@ -108,8 +91,7 @@ const Account = () => {
 
     return (
         <div className="account">
-             {tokenPresent ? (
-           // {isLoggedIn ? (           //IF TOKEN ABOVE DOESN'T WORK, TRY THIS SYNTAX INSTEAD
+            {isLoggedIn ? (
                 <>
                     <AccountDetails />
                     <button onClick={logOut}>Logout</button>
@@ -118,16 +100,56 @@ const Account = () => {
                 <>
                     <form onSubmit={register}>
                         <h1>New User Registration</h1>
-                        <input type="text" name="registerName" value={formData.registerName} onChange={handleInputChange} placeholder="First Name" required />
-                        <input type="email" name="registerEmail" value={formData.registerEmail} onChange={handleInputChange} placeholder="Email" required />
-                        <input name="registerUsername" value={formData.registerUsername} onChange={handleInputChange} placeholder="Username" required />
-                        <input type="password" name="registerPassword" value={formData.registerPassword} onChange={handleInputChange} placeholder="Password" required />
+                        <input
+                            type="text"
+                            name="registerName"
+                            value={formData.registerName}
+                            onChange={handleInputChange}
+                            placeholder="First Name"
+                            required
+                        />
+                        <input
+                            type="email"
+                            name="registerEmail"
+                            value={formData.registerEmail}
+                            onChange={handleInputChange}
+                            placeholder="Email"
+                            required
+                        />
+                        <input
+                            name="registerUsername"
+                            value={formData.registerUsername}
+                            onChange={handleInputChange}
+                            placeholder="Username"
+                            required
+                        />
+                        <input
+                            type="password"
+                            name="registerPassword"
+                            value={formData.registerPassword}
+                            onChange={handleInputChange}
+                            placeholder="Password"
+                            required
+                        />
                         <button type="submit">Register</button>
                     </form>
                     <form onSubmit={login}>
                         <h1>Login</h1>
-                        <input name="inputUsername" value={formData.inputUsername} onChange={handleInputChange} placeholder="Email" required />
-                        <input type="password" name="inputPassword" value={formData.inputPassword} onChange={handleInputChange} placeholder="Password" required />
+                        <input
+                            name="inputUsername"
+                            value={formData.inputUsername}
+                            onChange={handleInputChange}
+                            placeholder="Username"
+                            required
+                        />
+                        <input
+                            type="password"
+                            name="inputPassword"
+                            value={formData.inputPassword}
+                            onChange={handleInputChange}
+                            placeholder="Password"
+                            required
+                        />
                         <button type="submit">Log In</button>
                     </form>
                 </>
@@ -137,16 +159,3 @@ const Account = () => {
 };
 
 export default Account;
-
-
-
-
-
-
-
-
-
-
-
-
-
