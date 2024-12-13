@@ -16,9 +16,9 @@ router.post('/register', async (req, res) => {
   console.log('Register Request Body:', req.body);
 
   // Validate required fields
-  if (!email || !username || !password || !firstname || !lastname) {
+  if (!email || !username || !password || !firstname) {
     console.error('Missing required fields');
-    return res.status(400).json({ error: 'All fields are required' });
+    return res.status(400).json({ error: 'Firstname, email, username, and password are required' });
   }
 
   try {
@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
         username,
         password: hashedPassword,
         firstname,
-        lastname,
+        lastname: lastname || null, // Set to null if empty
       },
     });
 
@@ -47,6 +47,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ error: 'User registration failed' });
   }
 });
+
 
 // Login a user
 router.post('/login', async (req, res) => {
