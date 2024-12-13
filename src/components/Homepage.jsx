@@ -1,6 +1,6 @@
 
 
-import React, { useState } from "react";
+import { useState } from "react";
 import phase1 from "../../prisma/phase1";
 import phase2 from "../../prisma/phase2";
 
@@ -13,6 +13,8 @@ const Home = () => {
   );
 
   return (
+    <>
+
     <div className="all-posts-container">
       <h1>Get Inspired</h1>
       <input
@@ -38,6 +40,7 @@ const Home = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
