@@ -7,7 +7,7 @@ const Account = () => {
         registerEmail: '',
         registerUsername: '',
         registerPassword: '',
-        inputUsername: '',
+        inputEmail: '',
         inputPassword: '',
     });
 
@@ -28,44 +28,52 @@ const Account = () => {
 
     const register = async (e) => {
         e.preventDefault();
-
+      
+        const payload = {
+          firstname: formData.registerName,
+          lastname: '', // Optional: Collect or leave empty
+          email: formData.registerEmail,
+          username: formData.registerUsername,
+          password: formData.registerPassword,
+        };
+      
+        console.log('Register Payload:', payload);
+      
         try {
-            const response = await fetch('https://travelbug-2.onrender.com/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: formData.registerName,
-                    email: formData.registerEmail,
-                    username: formData.registerUsername,
-                    password: formData.registerPassword,
-                }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                setIsLoggedIn(true);
-            } else {
-                console.error('Registration failed:', data.message || 'Unknown error');
-            }
+          const response = await fetch('https://travelbug-2.onrender.com/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+      
+          const data = await response.json();
+          console.log('Register Response:', data);
+      
+          if (response.ok) {
+            localStorage.setItem('token', data.token);
+            setIsLoggedIn(true);
+          } else {
+            console.error('Registration failed:', data.error || 'Unknown error');
+          }
         } catch (error) {
-            console.error('Error during registration:', error);
+          console.error('Error during registration:', error);
         }
-    };
+      };
+      
 
     const login = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://travelbug-2.onrender.com/login', {
+            const response = await fetch('https://travelbug-2.onrender.com/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: formData.inputUsername,
+                    email: formData.inputEmail,
                     password: formData.inputPassword,
                 }),
             });
@@ -73,10 +81,9 @@ const Account = () => {
             const data = await response.json();
             if (response.ok) {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('username', formData.inputUsername);
                 setIsLoggedIn(true);
             } else {
-                console.error('Login failed:', data.message || 'Unknown error');
+                console.error('Login failed:', data.error || 'Unknown error');
             }
         } catch (error) {
             console.error('Error during login:', error);
@@ -85,7 +92,6 @@ const Account = () => {
 
     const logOut = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('username');
         setIsLoggedIn(false);
     };
 
@@ -136,10 +142,11 @@ const Account = () => {
                     <form onSubmit={login}>
                         <h1>Login</h1>
                         <input
-                            name="inputUsername"
-                            value={formData.inputUsername}
+                            type="email"
+                            name="inputEmail"
+                            value={formData.inputEmail}
                             onChange={handleInputChange}
-                            placeholder="Username"
+                            placeholder="Email"
                             required
                         />
                         <input

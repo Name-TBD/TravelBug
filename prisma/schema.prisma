@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,12 +15,8 @@ model User {
   firstName  String?
   lastName   String?
   posts      Post[]
-  // bio        String?
- // comments   Comment[]
- // likes      Like[]
-  // followers  Follower[] @relation("Following")
-  // following  Follower[] @relation("Follower")
-  // trips      Trip[]
+  comments   Comment[]
+  likes      Like[]
 }
 
 model Post {
@@ -35,48 +25,29 @@ model Post {
   imageUrl    String
   title       String
   description String
-  user        User      @relation(fields: [userId], references: [userId])
-  // tripId      Int?
-  // trip        Trip?     @relation(fields: [tripId], references: [tripId])
   startDate   DateTime
   endDate     DateTime
   rating      Int
-  // comments   Comment[]
-  // likes       Like[]
+  user        User      @relation(fields: [userId], references: [userId])
+  comments    Comment[]
+  likes       Like[]
 }
 
-// model Follower {
-//   followerId       Int      @id @default(autoincrement())
-//   userId           Int
-//   followerUserId   Int
-//   // user             User     @relation(name: "Following", fields: [userId], references: [userId])
-//   follower         User     @relation(name: "Follower", fields: [followerUserId], references: [userId])
-// }
-// model Comment {
-//   commentId    Int      @id @default(autoincrement())
-//   postId       Int
-//   userId       Int
-//   commentText  String
-//   post         Post     @relation(fields: [postId], references: [postId])
-//   user         User     @relation(fields: [userId], references: [userId])
-// }
+model Comment {
+  commentId    Int      @id @default(autoincrement())
+  postId       Int
+  userId       Int
+  commentText  String
+  createdAt    DateTime @default(now())
+  post         Post     @relation(fields: [postId], references: [postId])
+  user         User     @relation(fields: [userId], references: [userId])
+}
 
-// model Like {
-//   likeId       Int      @id @default(autoincrement())
-//   postId       Int
-//   userId       Int
-//   post         Post     @relation(fields: [postId], references: [postId])
-//   user         User     @relation(fields: [userId], references: [userId])
-// }
-
-
-// model Trip {
-//   tripId       Int      @id @default(autoincrement())
-//   userId       Int
-//   tripName     String
-//   description  String?
-//   startDate    DateTime
-//   endDate      DateTime
-//   user         User     @relation(fields: [userId], references: [userId])
-//   posts        Post[]
-// }
+model Like {
+  likeId       Int      @id @default(autoincrement())
+  postId       Int
+  userId       Int
+  createdAt    DateTime @default(now())
+  post         Post     @relation(fields: [postId], references: [postId])
+  user         User     @relation(fields: [userId], references: [userId])
+}
