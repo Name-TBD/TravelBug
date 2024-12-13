@@ -19,11 +19,30 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-app.use(cors({ origin: 'https://travelbugthugs.netlify.app' }));
+const allowedOrigins = [
+  'https://travelbugthugs.netlify.app', // Production frontend
+  'http://localhost:4173', // Development frontend
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Allow cookies and headers
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the "dist" directory
-app.use(express.static(path.join(__dirname, 'dist')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'dist')));
+}
 
 // Use the routes
 app.use('/auth', authRoutes);
@@ -32,9 +51,11 @@ app.use('/users', usersRoutes);
 app.use('/upload', uploadRoutes); // Corrected the upload path
 
 // Fallback to index.html for any other route
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
+}
 
 // Start the server
 app.listen(PORT, () => {
