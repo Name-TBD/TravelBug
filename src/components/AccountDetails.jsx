@@ -1,83 +1,58 @@
-
-
 import React, { useEffect, useState } from "react";
-import CreatePost from "./CreatePost";
 
-const AccountDetails = () => {
-    const [user, setUser] = useState([]);
-    const [posts, setPosts] = useState([]);
+const Account = () => {
+  const [userDetails, setUserDetails] = useState(null);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await fetch ('https://travelbug-2.onrender.com/users/me');
-               // const response = await fetch ('https://travelbug-2.onrender.com/users');
-                /* const response = await fetch('/users/me', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }   */
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const userData = await response.json();
-                setUser(userData);
-            } catch (err) {
-                console.error("Error fetching user:", err);
-            }
-        };
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setError("User not authenticated");
+          return;
+        }
 
-        const fetchUserPosts = async () => {
-            try {
-                const token = localStorage.getItem("token");
-               const reponse = await fetch ('https://travelbug-2.onrender.come/post');
-               //const reponse = await fetch ('https://travelbug-2.onrender.come/post/1');
-               /* const response = await fetch('/post', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }   */
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user posts");
-                }
-                const postsData = await response.json();
-                setPosts(postsData.filter(post => post.userId === user.userId));
-            } catch (err) {
-                console.error("Error fetching user posts:", err);
-            }
-        };
+        const response = await fetch("https://travelbug-2.onrender.com/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        fetchUser();
-        fetchUserPosts();
-    }, [user.userId]);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user details");
+        }
 
-    return (
-        <div className="account-details">
-            <h2>Welcome, {user.username}!</h2>
-            <div className="user-info">
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>First Name:</strong> {user.firstName}</p>
-                <p><strong>Last Name:</strong> {user.lastName}</p>
-            </div>
+        const details = await response.json();
+        setUserDetails(details);
+      } catch (err) {
+        setError(err.message || "Something went wrong");
+      }
+    };
 
-            <h3>Your Posts</h3>
-            <div className="user-posts">
-                {posts.map(post => (
-                    <div key={post.postId} className="post">
-                        <h4>{post.title}</h4>
-                        <img src={post.imageUrl} alt={post.title} className="post-image" />
-                        <p>{post.description}</p>
-                        <p>Rating: {post.rating}/5</p>
-                        <p>From: {new Date(post.startDate).toLocaleDateString()} To: {new Date(post.endDate).toLocaleDateString()}</p>
-                    </div>
-                ))}
-            </div>
+    fetchUserDetails();
+  }, []);
 
-            <h3>Create a New Post</h3>
-            <CreatePost />
-        </div>
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div className="page-container">
+      <div className="account-container">
+        <h2>Account Info</h2>
+        {userDetails ? (
+          <div>
+            <p>First Name: {userDetails.firstname}</p>
+            <p>Last Name: {userDetails.lastname}</p>
+            <p>Email: {userDetails.email}</p>
+          </div>
+        ) : (
+          <p>Loading user details...</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default AccountDetails;
+export default Account;
