@@ -46,29 +46,82 @@ input:focus {
   outline: none;
 }
 
+
+
 /* Navbar styles */
 nav {
   background-color: #3f83f8; /* Bright blue */
   padding: 10px 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
   align-items: center;
   gap: 20px;
 }
 
-nav a {
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-image {
+  width: 40px;
+  height: 40px;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-icon {
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-icon:hover {
+  color: #6aa8ff; /* Slightly lighter blue */
+}
+
+.nav-profile {
+  background-color: #ff5722; /* Vibrant orange for profile icon */
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.nav-link {
   color: #fff;
   text-decoration: none;
   font-size: 1rem;
-  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease;
   padding: 5px 10px;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-nav a:hover {
+.nav-link:hover {
   background-color: #6aa8ff; /* Slightly lighter blue */
 }
+
 
 /* Homepage styles */
 .homepage {
