@@ -1,5 +1,6 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
+import authenticateToken from '../middleware/authMiddleware.js'; // Import the middleware
 
 const prisma = new PrismaClient();
 const router = express.Router();
@@ -26,8 +27,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
-//Added this /me to personalize the post feed after login/registration
+// Added this /me to personalize the post feed after login/registration
 router.get('/me', authenticateToken, async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
@@ -41,6 +41,5 @@ router.get('/me', authenticateToken, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 export default router;
