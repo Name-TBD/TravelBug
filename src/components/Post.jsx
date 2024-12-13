@@ -36,7 +36,7 @@ export default function Post ({ post }) {               //The post component acc
     }, [post.userId]);
 
 
-    const likeHandler = () => {             //NEED LIKE/COMMENTS ENABLES IN DB? Handle like button click. Updates the likes count frontend and backend.     // Update like state locally
+    const likeHandler = async () => {             //NEED LIKE/COMMENTS ENABLES IN DB? Handle like button click. Updates the likes count frontend and backend.     // Update like state locally
         try {
         const response = await fetch(`/posts/${post._id}/like`, {
             method: "PUT",
