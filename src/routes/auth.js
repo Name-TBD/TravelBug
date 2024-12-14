@@ -34,8 +34,8 @@ router.post('/register', async (req, res) => {
         email,
         username,
         password: hashedPassword,
-        firstname,
-        lastname: lastname || null, // Set to null if empty
+        firstName: firstname,
+        lastName: lastname || null, // Set to null if empty
       },
     });
 
