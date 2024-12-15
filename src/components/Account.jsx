@@ -63,32 +63,30 @@ const Account = () => {
       };
       
 
-    const login = async (e) => {
+      const login = async (e) => {
         e.preventDefault();
-
+      
         try {
-            const response = await fetch('https://travelbug-2.onrender.com/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: formData.inputEmail,
-                    password: formData.inputPassword,
-                }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                setIsLoggedIn(true);
-            } else {
-                console.error('Login failed:', data.error || 'Unknown error');
-            }
+          const response = await fetch("https://travelbug-2.onrender.com/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: formData.inputEmail,
+              password: formData.inputPassword,
+            }),
+          });
+      
+          const data = await response.json();
+          if (response.ok) {
+            localStorage.setItem("token", data.token); // Save token to localStorage
+            setIsLoggedIn(true);
+          } else {
+            console.error("Login failed:", data.message || "Unknown error");
+          }
         } catch (error) {
-            console.error('Error during login:', error);
+          console.error("Error during login:", error);
         }
-    };
+      };
 
     const logOut = () => {
         localStorage.removeItem('token');
