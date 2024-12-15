@@ -5,34 +5,33 @@ const Account = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setError("User not authenticated");
-          return;
-        }
-
-        const response = await fetch("https://travelbug-2.onrender.com/users/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch user details");
-        }
-
-        const details = await response.json();
-        setUserDetails(details);
-      } catch (err) {
-        setError(err.message || "Something went wrong");
+  const fetchUserDetails = async () => {
+    try {
+      const token = localStorage.getItem("token"); // Ensure the token is stored
+      if (!token) {
+        throw new Error("No token found. User not authenticated.");
       }
-    };
 
-    fetchUserDetails();
-  }, []);
+      const response = await fetch("https://travelbug-2.onrender.com/users/me", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Send the token here
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch user details");
+      }
+
+      const details = await response.json();
+      setUserDetails(details);
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+    }
+  };
+
+  fetchUserDetails();
+}, []);
 
   if (error) {
     return <div>Error: {error}</div>;
