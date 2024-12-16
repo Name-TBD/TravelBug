@@ -28,21 +28,25 @@ router.get('/:id', async (req, res) => {
 });
 
 // Added this /me to personalize the post feed after login/registration
+// Fetch current user details based on the token
 router.get('/me', authenticateToken, async (req, res) => {
-  console.log("Received Token User:", req.user); // Debugging line
   try {
-    const user = await prisma.user.findUnique({
-      where: { userId: req.user.id },
-    });
+    if (!req.user || !req.user.id) {
+      return res.status(400).json({ error: 'Invalid token or user data missing' });
+    }
+
+    const user = await prisma.user.findUnique({ where: { userId: req.user.id } });
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
     res.json(user);
   } catch (error) {
-    console.error("Error fetching user:", error);
-    res.status(500).json({ error: "Failed to fetch user details" });
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ error: 'Failed to fetch user data' });
   }
 });
+
+
 
 
 export default router;

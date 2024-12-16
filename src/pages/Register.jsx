@@ -1,98 +1,88 @@
-
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const[firstname, setFirstname] = useState('')
-  const[lastname, setLastname] = useState('')
-  const[email, setEmail] = useState('')
-  const[password, setPassword] = useState('')
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    username: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = async(event) => {
-    event.preventDefault();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+  };
 
-    const userData = { firstname, lastname, email, password };
+  const handleRegister = async (e) => {
+    e.preventDefault();
     try {
-      const response = await registerUser(userData);  // //How to connect registerUser to routes users.js? Which variable or endpoint?Need i import registerUser above?
-      if (response.message === 'Registration successful') {
-        console.log('Registration successful!');
+      const response = await fetch("https://travelbug-2.onrender.com/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        navigate("/login");
       } else {
-        console.error('Registration failed:', response.message);
+        console.error("Registration failed:", data.error);
       }
     } catch (error) {
-      console.error('An error occurred during registration:', error);
+      console.error("Error during registration:", error);
     }
   };
 
-  return(
-    <div className="page-container">
-      <div className="login-container">
-        <h2>Register</h2>
-
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="firstname">First Name:</label>
-            <input
-              type="text"
-              id="firstname"
-              value={firstname}
-              onChange={(event) => setFirstname(event.target.value)}
-              placeholder="First Name"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="lastname">Last Name:</label>
-            <input
-              type="text"
-              id="lastname"
-              value={lastname}
-              onChange={(event) => setLastname(event.target.value)}
-              placeholder="Last Name"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="Email"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
-            />
-          </div>
-
-          <button type="submit">Register New Account</button>
-        </form>
-      </div>
+  return (
+    <div className="register-container">
+      <h1>Register</h1>
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          name="firstname"
+          placeholder="First Name"
+          value={formData.firstname}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastname"
+          placeholder="Last Name"
+          value={formData.lastname}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };
 
 export default Register;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -8,7 +8,8 @@ import Account from './components/Account';
 import AccountDetails from './components/AccountDetails';
 import CreatePost from './components/CreatePost';
 import MyProfile from './components/MyProfile';
-
+import PostDetails from "./components/PostDetails";
+import AllPosts from "./components/AllPosts";
 
 
 const App = () => {
@@ -21,6 +22,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/account" element={<Account />} />
         <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/post/:id" element={<PostDetails />} />
+        <Route path="/all-posts" element={<AllPosts />} />
       </Routes>
        </>
   );

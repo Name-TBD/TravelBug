@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from "react";
 
-const Account = () => {
+const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  const fetchUserDetails = async () => {
-    try {
-      const token = localStorage.getItem("token"); // Ensure the token is stored
-      if (!token) {
-        throw new Error("No token found. User not authenticated.");
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found.");
+          return;
+        }
+  
+        const response = await fetch("https://travelbug-2.onrender.com/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Ensure proper formatting
+          },
+        });
+  
+        if (!response.ok) {
+          const errorDetails = await response.json();
+          throw new Error(errorDetails.message || "Failed to fetch user details");
+        }
+  
+        const details = await response.json();
+        setUserDetails(details);
+      } catch (error) {
+        console.error("Error fetching user details:", error.message);
       }
-
-      const response = await fetch("https://travelbug-2.onrender.com/users/me", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Send the token here
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch user details");
-      }
-
-      const details = await response.json();
-      setUserDetails(details);
-    } catch (err) {
-      setError(err.message || "Something went wrong");
-    }
-  };
-
-  fetchUserDetails();
-}, []);
+    };
+  
+    fetchUserDetails();
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -55,4 +56,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountDetails;

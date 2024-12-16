@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -16,13 +16,12 @@ const CreatePost = () => {
     const fetchUserId = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('/users/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+        if (!token) return;
+        const response = await fetch('https://travelbug-2.onrender.com/users/me', {
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          throw new Error('Failed to fetch user data.');
         }
         const userData = await response.json();
         setUserId(userData.userId);
@@ -38,34 +37,35 @@ const CreatePost = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/post', {
+      const response = await fetch('https://travelbug-2.onrender.com/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           userId,
-          imageUrl,
           title,
           description,
+          imageUrl,
           startDate,
           endDate,
-          rating: parseInt(rating)
-        })
+          rating: parseInt(rating, 10),
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create post');
+        throw new Error('Failed to create post.');
       }
 
       const data = await response.json();
       console.log('Post created:', data);
-      navigate('/profile');
+      navigate('/myprofile');
     } catch (error) {
       console.error('Error creating post:', error);
     }
   };
+
 
   return (
     <div className="create-post-container">

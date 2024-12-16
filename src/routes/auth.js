@@ -4,27 +4,15 @@ import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
+const router = express.Router();
 const SECRET_KEY = process.env.SECRET_KEY;
 
-const router = express.Router();
-
-// Register a new user
 router.post('/register', async (req, res) => {
   const { email, username, password, firstname, lastname } = req.body;
-
-  // Log incoming request
-  console.log('Register Request Body:', req.body);
-
-  // Validate required fields
-  if (!email || !username || !password || !firstname) {
-    console.error('Missing required fields');
-    return res.status(400).json({ error: 'Firstname, email, username, and password are required' });
-  }
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      console.error('User already exists:', email);
       return res.status(400).json({ error: 'User already exists' });
     }
 
@@ -35,12 +23,11 @@ router.post('/register', async (req, res) => {
         username,
         password: hashedPassword,
         firstName: firstname,
-        lastName: lastname || null, // Set to null if empty
+        lastName: lastname || null,
       },
     });
 
     const token = jwt.sign({ id: user.userId }, SECRET_KEY, { expiresIn: '1h' });
-    console.log('User registered successfully:', user);
     res.status(201).json({ token });
   } catch (error) {
     console.error('Error during registration:', error);
@@ -48,19 +35,16 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
-// Login a user
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
-
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).json({ error: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user.userId }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.userId }, SECRET_KEY, { expiresIn: '7d' });
     res.json({ token });
   } catch (error) {
     console.error('Error during login:', error);
