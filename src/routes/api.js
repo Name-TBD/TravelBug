@@ -1,77 +1,66 @@
-const APIURL = 'https://travelbug-2.onrender.com'; // Ensure the API URL is consistent
-
 export const registerUser = async (userData) => {
-  const response = await fetch(`${APIURL}/auth/register`, { // Fixed endpoint path
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userData),
-  });
-  return await response.json();
+  try {
+    const response = await fetch(`${APIURL}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData),
+    });
+    if (!response.ok) {
+      throw new Error(`Registration failed: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error registering user:', error);
+    throw error;
+  }
 };
 
 export const loginUser = async (credentials) => {
-  const response = await fetch(`${APIURL}/auth/login`, { // Fixed endpoint path
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(credentials),
-  });
-  return await response.json();
+  try {
+    const response = await fetch(`${APIURL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    });
+    if (!response.ok) {
+      throw new Error(`Login failed: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error;
+  }
 };
 
-export const getUserDetails = async (token) => {
-  const response = await fetch(`${APIURL}/users/me`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return await response.json();
+export const getPosts = async (page = 1, limit = 10) => {
+  try {
+    const response = await fetch(`${APIURL}/posts?page=${page}&limit=${limit}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch posts.');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
 };
 
-// Add functionality for fetching comments and likes
 export const addComment = async (postId, commentData, token) => {
-  const response = await fetch(`${APIURL}/posts/${postId}/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(commentData),
-  });
-  return await response.json();
-};
-
-export const getComments = async (postId) => {
-  const response = await fetch(`${APIURL}/posts/${postId}/comments`, {
-    headers: { 'Content-Type': 'application/json' },
-  });
-  return await response.json();
-};
-
-export const likePost = async (postId, token) => {
-  const response = await fetch(`${APIURL}/posts/${postId}/likes`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return await response.json();
-};
-
-export const unlikePost = async (postId, token) => {
-  await fetch(`${APIURL}/posts/${postId}/likes`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
-
-export const getLikes = async (postId) => {
-  const response = await fetch(`${APIURL}/posts/${postId}/likes`, {
-    headers: { 'Content-Type': 'application/json' },
-  });
-  return await response.json();
+  try {
+    const response = await fetch(`${APIURL}/posts/${postId}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(commentData),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to add comment.');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw error;
+  }
 };

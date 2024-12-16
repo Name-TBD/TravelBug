@@ -1,5 +1,5 @@
 @host = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0LCJpYXQiOjE3MzQyODk5NDIsImV4cCI6MTczNDI5MzU0Mn0.kzr1aZHsXUHtdGyUL4jn7WYIzbsj0Pshex2UU5dfNRs
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0LCJpYXQiOjE3MzQyOTkwMzMsImV4cCI6MTczNDMwMjYzM30.nvlqF2TRIPZrEKw-4e7wMSOXg7KgKAL2sdGzjKJI6zg
 
 ### User Registration
 POST {{host}}/auth/register
@@ -40,7 +40,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "userId": 114,
+  "userId": 116,
   "imageUrl": "http://example.com/travel-image.jpg",
   "title": "Trip to Vietnam",
   "description": "A memorable trip exploring Vietnamese food",
@@ -56,5 +56,10 @@ Authorization: Bearer {{token}}
 
 ### Get Specific Post
 GET {{host}}/post/5203
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Fetch Current User Details
+GET {{host}}/users/me
 Content-Type: application/json
 Authorization: Bearer {{token}}

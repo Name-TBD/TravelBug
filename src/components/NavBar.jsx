@@ -1,36 +1,43 @@
-
-import { NavLink } from "react-router-dom";
-import "../App.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import '../App.css';
 
 const Navbar = () => {
   return (
-    <nav>
+    <nav className="navbar">
       <div className="nav-left">
-        <NavLink 
-          to="/" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
         >
-          <span className="material-icons">home</span>
           Home
         </NavLink>
-        <NavLink 
-          to="/account" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+        <NavLink
+          to="/account"
+          className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
         >
-          <span className="material-icons">account_circle</span>
           Account
         </NavLink>
-        <NavLink 
-          to="/myprofile" 
-          className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+        <NavLink
+          to="/myprofile"
+          className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
         >
-          <span className="material-icons">person</span>
           My Profile
+        </NavLink>
+        <NavLink
+          to="/all-posts"
+          className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+        >
+          All Posts
         </NavLink>
       </div>
       <div className="nav-right">
-        <span className="material-icons nav-icon" tabIndex={0}>notifications</span>
-        <span className="material-icons nav-icon" tabIndex={0}>settings</span>
+        <span className="material-icons nav-icon" tabIndex={0}>
+          notifications
+        </span>
+        <span className="material-icons nav-icon" tabIndex={0}>
+          settings
+        </span>
         <span className="material-icons nav-profile">person</span>
       </div>
     </nav>

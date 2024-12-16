@@ -1,156 +1,76 @@
-//AllMovies = AllPosts. Change to Feed after. 
-//AllMovies is AllPosts (Feed)
-//Replace movies with posts: const AllPosts, posts, setPosts, getPosts, postData, post.title, const sortedPosts, etc.
-
-/*
-
-
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getPosts = async () => {
+    const fetchPosts = async () => {
       try {
-        const response = await fetch("/post");    //need to replace this with the correct backend and ensure that's running.
+        const response = await fetch('https://travelbug-2.onrender.com/posts');
+        if (!response.ok) {
+          const errorText = await response.text(); // Inspect raw error response
+          throw new Error('Failed to fetch posts.');
+        }
         const postData = await response.json();
         setPosts(postData);
-      } catch (e) {
-        console.error("Error fetching posts:", e);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setLoading(false);
       }
     };
-    getPosts();
+
+    fetchPosts();
   }, []);
 
   const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  if (loading) {
+    return <p>Loading posts...</p>;
+  }
+
   return (
-    <>
-      <h1>Your Travel Posts</h1>
+    <div className="all-posts">
+      <h1>All Travel Posts</h1>
       <input
         type="text"
-        placeholder="Search for post"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search posts"
+        className="search-input"
       />
-      <section id="all-posts">
+      <section className="posts-container">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
-            <div key={post.postId} onClick={() => navigate(`/postcatalog/${post.postId}`)}>
+            <div
+              key={post.postId}
+              className="post-card"
+              onClick={() => navigate(`/post/${post.postId}`)}
+            >
               <h3>{post.title}</h3>
               {post.imageUrl ? (
-                <img src={post.imageUrl} alt={post.title} height="350" width="250" />
+                <img
+                  src={post.imageUrl}
+                  alt={post.title}
+                  className="post-image"
+                />
               ) : (
-                <p>No Image Available</p>
+                <p>No image available</p>
               )}
             </div>
           ))
         ) : (
-          <p>Loading posts...</p>
+          <p>No posts found</p>
         )}
       </section>
-    </>
-  );
-};
-
-export default AllPosts;
-
-
-
-
-
-
-
-
-/*
-//CHANGE MOVIES TO POSTS! MOVIE TO POST! IS THIS LIKE FEED OR PROFILE??
-/*
-
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-
-const AllPosts = () => {
-  const [movies, setMovies] = useState([]);
-  const [chronologicalMovies, setChronologicalMovies] = useState([]);
-  const [releaseDateMovies, setReleaseDateMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
- 
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch("https://travel-bugs2.onrender.com/movies");
-        if (!response.ok) throw new Error(`Error: ${response.status}`);
-        
-        const data = await response.json();
-        setMovies(data);
-
-        const chronological = [...data].sort((a, b) => a.chronologicalOrder - b.chronologicalOrder);
-        const releaseDate = [...data].sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate));
-        setChronologicalMovies(chronological);
-        setReleaseDateMovies(releaseDate);
-      } catch (error) {
-        console.error("Error fetching movies:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMovies();
-  }, []);
-
-  if (isLoading) {
-    return <p>Loading movies...</p>;
-  }
-
-  return (
-    <div style={{ display: "flex", gap: "20px" }}>
-      <div style={{ flex: 1 }}>
-        <h2>Chronological Order</h2>
-        <ul>
-          {chronologicalMovies.map((movie) => (
-            <li key={movie.id}
-            onClick={() => navigate(`/moviecatalog/${movie.id}`)}>
-              <strong>{movie.title}</strong> - Order: {movie.chronologicalOrder}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div style={{ flex: 1 }}>
-        <h2>Release Date Order</h2>
-        <ul>
-          {releaseDateMovies.map((movie) => (
-            <li key={movie.id}
-            onClick={() => navigate(`/moviecatalog/${movie.id}`)}>
-              <strong>{movie.title}</strong> - Release Date: {new Date(movie.releaseDate).toDateString()}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };
 
 export default AllPosts;
-
-*/
-
-
-
-
-
-
-
-
-
-
-
