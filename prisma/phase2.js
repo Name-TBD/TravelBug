@@ -13,7 +13,7 @@ const phase2 = [
     {
       postId: 18,
       userId: 18,
-      imageUrl: "https://images.unsplash.com/photo-1579156813142-1a5f6e6b7e5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFyaXMlMjBwbGFjZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://img.freepik.com/premium-photo/eiffel-tower-night-paris-france_177536-698.jpg?w=740",
       title: "Parisian Delights",
       description: "Indulging in pastries and exploring the charming streets of Paris! Each corner has its own story, and every bite is a delight.",
       user: "Benjamin Lewis",
@@ -24,7 +24,7 @@ const phase2 = [
     {
       postId: 19,
       userId: 19,
-      imageUrl: "https://images.unsplash.com/photo-1518600960740-c1b7a1c4b7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29sb25pYWwlMjBjb2FzdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://cdn.kimkim.com/files/a/content_articles/featured_photos/4ecb86cbc87f3f9504fffa1b94cf931693e4ab89/big-c3535b4050c2d49f330b0fd0b5b41cba.jpg?_gl=1*1vzvd90*_gcl_au*MTEyMTgyMzQzMi4xNzM0NDUxMTM0",
       title: "Colombia's Coffee Region",
       description: "Sipping fresh coffee in the lush hills of Colombia is a dream! The vibrant culture and stunning landscapes make this place unforgettable.",
       user: "Sophia Martinez",
@@ -35,7 +35,7 @@ const phase2 = [
     {
       postId: 20,
       userId: 20,
-      imageUrl: "https://images.unsplash.com/photo-1547692050-dc5b33b43d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFyaXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://res.cloudinary.com/rainforest-cruises/images/c_fill,g_auto/f_auto,q_auto/v1622577610/Exploration-Of-The-Amazon-Rainforest-A-Brief-History/Exploration-Of-The-Amazon-Rainforest-A-Brief-History.jpg",
       title: "Exploring the Amazon Rainforest",
       description: "The biodiversity in the Amazon is astounding! Trekking through the rainforest was an adventure of a lifetime, filled with unique wildlife encounters.",
       user: "Liam Walker",
@@ -57,7 +57,7 @@ const phase2 = [
     {
       postId: 22,
       userId: 22,
-      imageUrl: "https://images.unsplash.com/photo-1566438480901-fd1e7e9d7e69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFsaSUyMGJlYWNoZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://www.indonesia.travel/content/dam/indtravelrevamp/en/trip-ideas/6-must-visit-temples-in-bali-to-experience-bliss/uluwatu-temple.jpeg",
       title: "Bali's Beaches and Temples",
       description: "Bali's beaches are paradise on earth! Enjoyed exploring ancient temples and soaking up the sun on pristine shores.",
       user: "James Young",
@@ -68,7 +68,7 @@ const phase2 = [
     {
       postId: 23,
       userId: 23,
-      imageUrl: "https://images.unsplash.com/photo-1521737604890-eacb1e53d83c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8U2VsbGZvcmQlMjBhbmQlMjBsaWdlcmF0ZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2023/02/02192048/great-wall-of-china.jpeg?tr=w-1366,f-jpg,pr-true",
       title: "Exploring the Great Wall of China",
       description: "Walking along the Great Wall of China was an awe-inspiring experience! The views are breathtaking, and the history is fascinating.",
       user: "Ella King",
@@ -79,8 +79,8 @@ const phase2 = [
     {
       postId: 24,
       userId: 24,
-      imageUrl:"https://images.unsplash.com/photo-1542831371-a9fc9c9c7a68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29ubGFsaXR5JTIwZmFtaWx5JTIwYWxsaXN0ZW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60", 
-       title:"Peru's Culinary Journey", 
+      imageUrl:"https://media.cntraveler.com/photos/5c1943c3a6a145617b7c741d/master/w_1600%2Cc_limit/Lake-69_GettyImages-855326024.jpg", 
+       title:"Peru's Journey", 
        description:"Indulging in Peruvian cuisine was a treat for my taste buds! From ceviche to lomo saltado, every dish was bursting with flavor.", 
        user:"Lucas Wright", 
        startDate:"2027-03-01T12;00;00Z", 
@@ -90,7 +90,7 @@ const phase2 = [
      {
        postId:"25", 
        userId:"25", 
-       imageUrl:"https://images.unsplash.com/photo-1518397791641-b42e28d93e91?ixlib=rb -4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dmFuY29vdmVyJTIwYmVhY2glMjBmbG93ZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q =60", 
+       imageUrl:"https://www.christiesrealestate.com/blog/wp-content/uploads/2018/01/vancouver_whistler_GettyImages_584611660-2.jpg", 
        title:"Vancouver's Natural Beauty", 
        description:"Exploring Vancouver's mountains and coastline was breathtaking! Outdoor adventures abound here, from hiking to kayaking.", 
        user:"Amelia Scott", 
@@ -101,7 +101,7 @@ const phase2 = [
      {
        postId:"26", 
        userId:"26", 
-       imageUrl:"https://images.unsplash.com/photo -1553622039 -de1bce13a69e?ixlib = rb -4.0.3 & ixid = M3wxMjA3 fDB8 MHxz ZWFy Y2h8 Mnx8 YW1zdGVy ZWQlMjBmbG93ZXJzfGVufDB8 fDB8 fHww & auto = format & fit = crop & w =500 & q =60 ", 
+       imageUrl:"https://static.wixstatic.com/media/df9fb8_1ab0d839efd24b50b1a0b5c47e312c43~mv2.jpg", 
        title:"Exploring Iceland's Glaciers", 
        description:"Iceland's glaciers are a sight to behold! The ice formations and stunning landscapes left me speechless.", 
        user:"Oliver Green", 
@@ -112,7 +112,7 @@ const phase2 = [
      {
         postId:"27 ", 
         userId:"27 ", 
-        imageUrl:"https://images.unsplash.com/photo -1561679911 -b560cde94d80 ? ixlib = rb -4 .0 .3 & ixid = M3 wxMj A3 fDB8 MHxz ZWFy Y2h8 Mnx8 bGFuZG1hcmtldCUyMGFjdGlvbnxlbnww fHww fHx fDA % 3 D & auto = format & fit = crop & w =500 & q =60 ", 
+        imageUrl:"https://www.travelandleisure.com/thmb/hp0sQkcvv-Wlz9p51c2FZIQGFe8=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/safari-truck-giraffes-micato-safaris-SAFARIGUIDETIPS0721-2549bb165aa34dc193cb8b6f3958654b.jpg ", 
         title:"Safari Adventures in Kenya ", 
         description:"Witnessing wildlife in their natural habitat during a safari in Kenya was incredible! Every moment was filled with awe.",  
         user :"Charlotte Adams ",  
@@ -123,8 +123,8 @@ const phase2 = [
      {
         postId :"28 ",  
         userId :"28 ",  
-        imageUrl :"https://images.unsplash.com/photo -1531250705546 -d9b38b9c76a9 ? ixlib = rb -4 .0 .3 & ixid = M3 wxMj A3 fDB8 MHxz ZWFy Y2h8 Mnx8 dmlsbGFnZSByZWxhdGlvbnxlbnww fHww fHx fDA % 3 D & auto = format & fit = crop & w =500 & q =60 ",  
-        title :"Cultural Immersion in India ",  
+        imageUrl :"https://www.adelphi.edu/wp-content/uploads/2020/03/Discover-India-Culture.jpg ",  
+        title :"Cultural in India ",  
         description :"Experiencing India's rich culture through its festivals, cuisine, and traditions was unforgettable! Each moment was a celebration.",  
         user :"Henry Clark ",  
         startDate :"2027 -07 -15 T09 ;30 ;00 Z ",  
@@ -134,7 +134,7 @@ const phase2 = [
      {
         postId :"29 ",  
         userId :"29 ",  
-        imageUrl :"https://images.unsplash.com/photo -1582871917499 -73e77a5a56ac ? ixlib = rb -4 .0 .3 & ixid = M3 wxMj A3 fDB8 MHxz ZWFy Y2h8 Mnx8 dmlsbGFnZSByZWxhdGlvbnxlbnww fHww fHx fDA % 3 D & auto = format & fit = crop & w =500 & q =60 ",  
+        imageUrl :"https://sevenwonders.org/wp-content/uploads/2018/06/Acropolis-Parthenon-1024x683.jpg ",  
         title :"Historical Wonders of Greece ",  
         description :"Exploring ancient ruins in Greece was like stepping back in time! The history and architecture are simply awe-inspiring.",  
         user :"Ella Turner ",  

@@ -11,6 +11,7 @@ const Account = () => {
     inputPassword: "",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -28,9 +29,16 @@ const Account = () => {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://travelbug-2.onrender.com/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      console.log('Sending payload:', {
+        firstname: formData.registerName,
+        email: formData.registerEmail,
+        username: formData.registerUsername,
+        password: formData.registerPassword,
+      });
+  
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           firstname: formData.registerName,
           email: formData.registerEmail,
@@ -38,17 +46,24 @@ const Account = () => {
           password: formData.registerPassword,
         }),
       });
+  
       const data = await response.json();
+      console.log('Response from backend:', data);
+  
       if (response.ok) {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem('token', data.token);
         setIsLoggedIn(true);
+        setError(null);
       } else {
-        console.error("Registration failed:", data.error);
+        console.error('Registration failed:', data.error);
+        setError(data.error || 'Registration failed.');
       }
     } catch (error) {
-      console.error("Error during registration:", error);
+      console.error('Error during registration:', error.message);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
+  
 
   const login = async (e) => {
     e.preventDefault();
@@ -65,17 +80,20 @@ const Account = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         setIsLoggedIn(true);
+        setError(null);
       } else {
-        console.error("Login failed:", data.message);
+        setError(data.message || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setError("An unexpected error occurred during login.");
     }
   };
 
   const logOut = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setError(null);
   };
 
   return (
@@ -89,6 +107,7 @@ const Account = () => {
         <>
           <form onSubmit={register}>
             <h1>New User Registration</h1>
+            {error && <p className="error-message">{error}</p>}
             <input
               type="text"
               name="registerName"
@@ -124,6 +143,7 @@ const Account = () => {
           </form>
           <form onSubmit={login}>
             <h1>Login</h1>
+            {error && <p className="error-message">{error}</p>}
             <input
               type="email"
               name="inputEmail"

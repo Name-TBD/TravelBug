@@ -30,6 +30,28 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch posts.' });
   }
 });
+// get specific post
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: { postId: parseInt(id) },
+      include: { user: true, comments: true }, // Include related data if needed
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json(post);
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    res.status(500).json({ error: 'Failed to fetch post' });
+  }
+});
+
+
 // Create a post
 router.post('/', authenticateToken, async (req, res) => {
   const { userId, imageUrl, title, description, startDate, endDate, rating } = req.body;

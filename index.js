@@ -36,11 +36,26 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Root Endpoint
+app.get('/', (req, res) => {
+  res.send('TravelBug server is live!');
+});
+
 // Routes
 app.use("/auth", authRoutes);
 app.use("/post", postRoutes);
 app.use("/users", usersRoutes);
 app.use("/upload", uploadRoutes);
+
+// Test Database Connection
+app.get('/test-db', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json({ success: true, users });
+  } catch (error) {
+    res.status(500).json({ error: 'Database connection failed.', details: error.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

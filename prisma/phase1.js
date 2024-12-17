@@ -90,7 +90,7 @@ const phase1= [
     {
       postId: 9,
       userId: 9,
-      imageUrl: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFyaXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW_MDw2ViV0roOtoXxgojBJrDIStcwga7vbgZg051pHqYkB5r3Tz1P-QI9MzgRau5JX-AzW81sAdBHBVa6ToATo7JPHxk9uKKWkTvjBRDknDHsTFSzGmTB6ctxK7btapdwsnrEiSBb9DQ/s1600/PARIS+EIFFEL+TOWER.jpg",
       title: "Parisian Dreams",
       description: "Sipping coffee at a sidewalk café, strolling along the Seine, admiring world-class art - Paris is a dream come true. The city's charm is truly timeless.",
       user: "Alexander White",
@@ -123,7 +123,7 @@ const phase1= [
     {
       postId: 12,
       userId: 12,
-      imageUrl: "https://images.unsplash.com/photo-1601823984263-b87b59798b00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2FudG9yaW5pfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+      imageUrl: "https://www.santorinitravel.com/wp-content/uploads/2021/04/private-sunset-tour-in-Santorini.jpg",
       title: "Santorini Sunsets",
       description: "Watching the sunset in Oia is a bucket list experience! The white-washed buildings against the blue Aegean Sea create a postcard-perfect scene. Greek hospitality is unmatched.",
       user: "Ava Thompson",
