@@ -89,7 +89,7 @@ const MyProfile = () => {
       </div>
 
       <h3>Your Posts</h3>
-      <div className="user-posts">
+      <div className="post-container">
         {posts.map((post) => (
           <div key={post.postId} className="post">
             <h4>{post.title}</h4>
