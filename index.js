@@ -8,18 +8,16 @@ import postRoutes from "./src/routes/posts.js";
 import usersRoutes from "./src/routes/users.js";
 import uploadRoutes from "./src/routes/upload.js";
 import { fileURLToPath } from "url";
-import { createRoot } from 'react-dom/client';
 
 dotenv.config();
 
 const app = express();
-//const PORT = process.env.PORT || 3000;  CHANGE THIS PORT BACK
+const PORT = process.env.PORT || 3000;  
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-/*
 // CORS settings
 const allowedOrigins = [
   "https://travelbugthugs.netlify.app",
@@ -40,7 +38,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-*/
 
 // Root Endpoint
 app.get('/', (req, res) => {
@@ -63,8 +60,6 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-/*
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-*/
