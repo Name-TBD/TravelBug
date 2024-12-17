@@ -16,7 +16,7 @@ const Home = () => {
     <>
 
     <div className="all-posts-container">
-      <h1>Get Inspired</h1>
+      <h1>Get Inspired by Travel Bug</h1>
       <input
         type="text"
         placeholder="Where To?"

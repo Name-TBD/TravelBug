@@ -1,57 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("No token found.");
-          return;
-        }
+        const token = localStorage.getItem('token');
+        if (!token) return;
   
-        const response = await fetch("https://travelbug-2.onrender.com/users/me", {
+        const response = await fetch('https://travelbug-2.onrender.com/users/me', {
           headers: {
-            Authorization: `Bearer ${token}`, // Ensure proper formatting
+            Authorization: `Bearer ${token}`,
           },
         });
   
         if (!response.ok) {
-          const errorDetails = await response.json();
-          throw new Error(errorDetails.message || "Failed to fetch user details");
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch user details.');
         }
   
-        const details = await response.json();
-        setUserDetails(details);
+        const userDetails = await response.json();
+        setUserDetails(userDetails);
       } catch (error) {
-        console.error("Error fetching user details:", error.message);
+        console.error('Error fetching user details:', error.message);
       }
     };
   
     fetchUserDetails();
   }, []);
+  
+
+  if (loading) {
+    return <p>Loading user details...</p>;
+  }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <p>Error: {error}</p>;
   }
 
   return (
-    <div className="page-container">
-      <div className="account-container">
-        <h2>Account Info</h2>
-        {userDetails ? (
-          <div>
-            <p>First Name: {userDetails.firstname}</p>
-            <p>Last Name: {userDetails.lastname}</p>
-            <p>Email: {userDetails.email}</p>
-          </div>
-        ) : (
-          <p>Loading user details...</p>
-        )}
-      </div>
+    <div>
+      <h1>Account Details</h1>
+      {userDetails ? (
+        <div>
+          <p>First Name: {userDetails.firstName}</p>
+          <p>Last Name: {userDetails.lastName}</p>
+          <p>Email: {userDetails.email}</p>
+          <p>Username: {userDetails.username}</p>
+        </div>
+      ) : (
+        <p>No user details available.</p>
+      )}
     </div>
   );
 };

@@ -4,17 +4,17 @@ import CreatePost from "./CreatePost";
 const MyProfile = () => {
   const [user] = useState({
     userId: 1,
-    username: "johndoe",
-    email: "johndoe@example.com",
-    firstName: "John",
-    lastName: "Doe",
+    username: "henry",
+    email: "henry@example.com",
+    firstName: "Henry",
+    lastName: "Huynh",
   });
 
   const [posts, setPosts] = useState([
     {
       postId: 1,
       title: "My Trip to Paris",
-      imageUrl: "https://example.com/paris.jpg",
+      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
       description: "Had an amazing time visiting the Eiffel Tower!",
       rating: 5,
       startDate: "2023-05-01",
@@ -23,7 +23,7 @@ const MyProfile = () => {
     {
       postId: 2,
       title: "Beach Vacation in Bali",
-      imageUrl: "https://example.com/bali.jpg",
+      imageUrl: "https://www.brides.com/thmb/eOtyD6ZZ5-T2Ocn_e5ttHN0GWAQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/recirc-2232f9ff7cb4487d8a3446c5ff41bbfc.jpg",
       description: "Relaxing on the beautiful beaches of Bali.",
       rating: 4,
       startDate: "2023-07-15",

@@ -6,11 +6,11 @@ POST {{host}}/auth/register
 Content-Type: application/json
 
 {
-  "email": "random@example.com",
-  "username": "random",
-  "password": "random123",
-  "firstname": "Ran",
-  "lastname": "Dom"
+  "email": "henry2@example.com",
+  "username": "henry2",
+  "password": "henry1234",
+  "firstname": "henry",
+  "lastname": "123"
 }
 
 ### User Login
@@ -20,8 +20,8 @@ POST {{host}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "random@example.com",
-  "password": "random123"
+  "email": "henry2@example.com",
+  "password": "henry1234"
 }
 
 ### Get All Users
@@ -30,7 +30,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Get Single User
-GET {{host}}/users/114
+GET {{host}}/users/116
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -55,11 +55,11 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Get Specific Post
-GET {{host}}/post/5203
+GET {{host}}/post/5212
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Fetch Current User Details
-GET {{host}}/users/me
+GET {{host}}/users/165
 Content-Type: application/json
 Authorization: Bearer {{token}}
