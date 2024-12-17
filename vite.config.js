@@ -8,9 +8,21 @@ dotenv.config();
 export default defineConfig({
   plugins: [react()],
   server: {
+    port: process.env.PORT || 4179
+  },
+  preview: {
+    port: process.env.PORT || 4179
+  }
+});
+
+/*
+export default defineConfig({
+  plugins: [react()],
+  server: {
     port: process.env.PORT || 4173
   },
   preview: {
     port: process.env.PORT || 4173
   }
 });
+*/
