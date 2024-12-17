@@ -6,6 +6,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-left">
+      <img 
+          src="/src/assets/TravelBugslogo.png" 
+          alt="" 
+          className="navbar-logo"
+        />
+
         <NavLink
           to="/"
           className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}

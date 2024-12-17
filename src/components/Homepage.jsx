@@ -16,7 +16,13 @@ const Home = () => {
     <>
 
     <div className="all-posts-container">
-      <h1>Get Inspired by Travel Bug</h1>
+      
+    <img 
+          src="/src/assets/TravelBugslogo.png"
+           alt="Travel Bugs Logo" 
+            className="homepage-logo"  />
+        <h1> Discover the best vacation experiences...</h1>
+
       <input
         type="text"
         placeholder="Where To?"

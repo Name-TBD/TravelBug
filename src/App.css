@@ -49,6 +49,12 @@ input:focus {
 
 
 /* Navbar styles */
+.navbar-logo {
+  height: 30px; /* Size similar to the Amazon logo in the navbar */
+  margin-right: 10px; /* Space between logo and "Home" link */
+  vertical-align: middle; /* Vertically align the logo with the text */
+}
+
 nav {
   background-color: #3f83f8; /* Bright blue */
   padding: 10px 20px;
@@ -124,6 +130,25 @@ nav {
 
 
 /* Homepage styles */
+
+.homepage-logo {
+  height: 200px;  /* Larger logo size for homepage */
+  width: auto;   /* Maintain aspect ratio */
+  display: block; /* Makes the image block-level element */
+  margin: 20px auto 0px auto; /* Center image horizontally and add margin below */
+  border-radius: 10px; /* Rounds the edges of the logo */
+  
+  /* Shadow effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Horizontal offset, vertical offset, blur radius, color */
+
+}
+
+.logo-heading-container {
+  display: flex;
+  align-items: center; /* Vertically align the logo and title */
+  margin-right: 20px; /* Space between the logo + title and other navbar items */
+}
+
 .homepage {
   text-align: center;
   padding: 20px;
