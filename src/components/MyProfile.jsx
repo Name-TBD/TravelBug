@@ -29,6 +29,44 @@ const MyProfile = () => {
       startDate: "2023-07-15",
       endDate: "2023-07-22",
     },
+    {
+      postId: 3,
+      title: "Exploring Kyoto's Temples",
+      imageUrl: "https://boutiquejapan.com/wp-content/uploads/2014/01/Kinkakuji-Golden-Pavilion-Kyoto-Japan-1140.png",
+      description: "The serene temples and cherry blossoms in Kyoto were breathtaking.",
+      rating: 5,
+      startDate: "2023-03-20",
+      endDate: "2023-03-27"
+    },
+    {
+      postId: 4,
+      title: "Adventures in the Swiss Alps",
+      imageUrl: "https://www.muchbetteradventures.com/magazine/content/images/2019/07/10083602/iStock-499263804.jpg",
+      description: "Hiking through the Swiss Alps was a dream come true! Stunning landscapes everywhere.",
+      rating: 4.5,
+      startDate: "2023-06-10",
+      endDate: "2023-06-18"
+    },
+    {
+      postId: 5,
+      title: "Safari in Kenya",
+      imageUrl: "https://i0.wp.com/imaraafricasafaris.com/wp-content/uploads/2020/11/image-147.png?resize=1000%2C565&ssl=1",
+      description: "Witnessed elephants, lions, and zebras up close during a thrilling safari adventure.",
+      rating: 5,
+      startDate: "2023-08-05",
+      endDate: "2023-08-12"
+    },
+    {
+      postId: 6,
+      title: "Beach Getaway in the Maldives",
+      imageUrl: "https://cdn1.matadornetwork.com/blogs/1/2022/02/Maldives-beach-Coco-Bodu-Hithi-Resort.jpg",
+      description: "Relaxed on white sandy beaches and stayed in beautiful overwater bungalows.",
+      rating: 4.8,
+      startDate: "2023-02-14",
+      endDate: "2023-02-21"
+    },
+  
+    
   ]);
 
   const addPost = (newPost) => {
