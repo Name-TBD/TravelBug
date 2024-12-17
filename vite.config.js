@@ -5,17 +5,7 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: process.env.PORT || 4179
-  },
-  preview: {
-    port: process.env.PORT || 4179
-  }
-});
 
-/*
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -25,4 +15,3 @@ export default defineConfig({
     port: process.env.PORT || 4173
   }
 });
-*/
