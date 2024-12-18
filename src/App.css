@@ -219,6 +219,7 @@ nav {
 
 
 /* Post styles */
+
 .post-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -299,6 +300,15 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+
+.click-message {
+  color: #ff6600;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
 
 .search-bar {
   width: 100%;
