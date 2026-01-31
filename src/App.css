@@ -122,6 +122,9 @@ nav {
   transition: background-color 0.3s ease;
   padding: 5px 10px;
   border-radius: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .nav-link:hover {

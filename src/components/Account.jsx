@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import AccountDetails from "./AccountDetails";
 
 const Account = () => {
+  const apiUrl =
+    import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";
   const [formData, setFormData] = useState({
     registerName: "",
     registerEmail: "",
@@ -36,7 +38,7 @@ const Account = () => {
         password: formData.registerPassword,
       });
   
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -54,6 +56,7 @@ const Account = () => {
         localStorage.setItem('token', data.token);
         setIsLoggedIn(true);
         setError(null);
+        window.dispatchEvent(new Event("auth-change"));
       } else {
         console.error('Registration failed:', data.error);
         setError(data.error || 'Registration failed.');
@@ -68,7 +71,7 @@ const Account = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://travelbug-2.onrender.com/auth/login", {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,8 +84,9 @@ const Account = () => {
         localStorage.setItem("token", data.token);
         setIsLoggedIn(true);
         setError(null);
+        window.dispatchEvent(new Event("auth-change"));
       } else {
-        setError(data.message || "Login failed. Please check your credentials.");
+        setError(data.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -94,6 +98,7 @@ const Account = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setError(null);
+    window.dispatchEvent(new Event("auth-change"));
   };
 
   return (
