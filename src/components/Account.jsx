@@ -54,6 +54,7 @@ const Account = () => {
         localStorage.setItem('token', data.token);
         setIsLoggedIn(true);
         setError(null);
+        window.dispatchEvent(new Event("auth-change"));
       } else {
         console.error('Registration failed:', data.error);
         setError(data.error || 'Registration failed.');
@@ -68,7 +69,7 @@ const Account = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://travelbug-2.onrender.com/auth/login", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,6 +82,7 @@ const Account = () => {
         localStorage.setItem("token", data.token);
         setIsLoggedIn(true);
         setError(null);
+        window.dispatchEvent(new Event("auth-change"));
       } else {
         setError(data.message || "Login failed. Please check your credentials.");
       }
@@ -94,6 +96,7 @@ const Account = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setError(null);
+    window.dispatchEvent(new Event("auth-change"));
   };
 
   return (

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import CreatePost from "./CreatePost";
 
 const MyProfile = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user] = useState({
     userId: 1,
     username: "henry",
@@ -73,6 +75,21 @@ const MyProfile = () => {
     setPosts([...posts, { ...newPost, postId: posts.length + 1 }]);
   };
 
+  useEffect(() => {
+    const syncAuthState = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem("token")));
+    };
+
+    syncAuthState();
+    window.addEventListener("storage", syncAuthState);
+    window.addEventListener("auth-change", syncAuthState);
+
+    return () => {
+      window.removeEventListener("storage", syncAuthState);
+      window.removeEventListener("auth-change", syncAuthState);
+    };
+  }, []);
+
   return (
     <div className="account-details">
       <h2>Welcome, {user.username}!</h2>
@@ -89,27 +106,35 @@ const MyProfile = () => {
       </div>
 
       <h3>Your Posts</h3>
-      <div className="post-container">
-        {posts.map((post) => (
-          <div key={post.postId} className="post">
-            <h4>{post.title}</h4>
-            <img
-              src={post.imageUrl}
-              alt={post.title}
-              className="post-image"
-            />
-            <p>{post.description}</p>
-            <p>Rating: {post.rating}/5</p>
-            <p>
-              From: {new Date(post.startDate).toLocaleDateString()} To: {" "}
-              {new Date(post.endDate).toLocaleDateString()}
-            </p>
+      {isLoggedIn ? (
+        <>
+          <div className="post-container">
+            {posts.map((post) => (
+              <div key={post.postId} className="post">
+                <h4>{post.title}</h4>
+                <img
+                  src={post.imageUrl}
+                  alt={post.title}
+                  className="post-image"
+                />
+                <p>{post.description}</p>
+                <p>Rating: {post.rating}/5</p>
+                <p>
+                  From: {new Date(post.startDate).toLocaleDateString()} To:{" "}
+                  {new Date(post.endDate).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <h3>Create a New Post</h3>
-      <CreatePost onPostCreated={addPost} />
+          <h3>Create a New Post</h3>
+          <CreatePost onPostCreated={addPost} />
+        </>
+      ) : (
+        <p>
+          Please <Link to="/account">log in</Link> to view your posts.
+        </p>
+      )}
     </div>
   );
 };

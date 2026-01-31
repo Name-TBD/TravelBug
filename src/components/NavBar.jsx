@@ -1,7 +1,31 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../App.css';
 
 const Navbar = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const syncAuthState = () => {
+      setIsLoggedIn(Boolean(localStorage.getItem('token')));
+    };
+
+    syncAuthState();
+    window.addEventListener('storage', syncAuthState);
+    window.addEventListener('auth-change', syncAuthState);
+
+    return () => {
+      window.removeEventListener('storage', syncAuthState);
+      window.removeEventListener('auth-change', syncAuthState);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.dispatchEvent(new Event('auth-change'));
+  };
+
   return (
     <nav className="navbar">
       <div className="nav-left">
@@ -32,6 +56,11 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="nav-right">
+        {isLoggedIn && (
+          <button className="nav-link" onClick={handleLogout} type="button">
+            Log Out
+          </button>
+        )}
         <span className="material-icons nav-icon" tabIndex={0}>
           notifications
         </span>
