@@ -16,6 +16,7 @@ const Home = () => {
     return array
       .map((item) => ({ ...item, sortKey: Math.random() })) 
       .sort((a, b) => a.sortKey - b.sortKey)               
+      // eslint-disable-next-line no-unused-vars
       .map(({ sortKey, ...item }) => item);               
   };
   
@@ -82,8 +83,6 @@ const handlePostClick = () => {
 };
 
 export default Home;
-
-
 
 
 

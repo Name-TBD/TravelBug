@@ -5,8 +5,6 @@ import './App.css';
 import Home from './components/Homepage';
 import Navbar from './components/NavBar';
 import Account from './components/Account';
-import AccountDetails from './components/AccountDetails';
-import CreatePost from './components/CreatePost';
 import MyProfile from './components/MyProfile';
 import PostDetails from "./components/PostDetails";
 import AllPosts from "./components/AllPosts";

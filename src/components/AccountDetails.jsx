@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -9,7 +9,10 @@ const AccountDetails = () => {
     const fetchUserDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        if (!token) return;
+        if (!token) {
+          setLoading(false);
+          return;
+        }
   
         const response = await fetch('https://travelbug-2.onrender.com/users/me', {
           headers: {
@@ -26,6 +29,9 @@ const AccountDetails = () => {
         setUserDetails(userDetails);
       } catch (error) {
         console.error('Error fetching user details:', error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
   

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import styles from "../styles/post.module.css";
 import { Link } from "react-router-dom";
 
@@ -89,3 +90,14 @@ const Post = ({ post }) => {
 };
 
 export default Post;
+
+Post.propTypes = {
+  post: PropTypes.shape({
+    _id: PropTypes.string,
+    createdAt: PropTypes.string,
+    desc: PropTypes.string,
+    img: PropTypes.string,
+    likes: PropTypes.arrayOf(PropTypes.string).isRequired,
+    userId: PropTypes.string.isRequired,
+  }).isRequired,
+};

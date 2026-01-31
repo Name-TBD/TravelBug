@@ -1,21 +1,18 @@
 
 import express from "express";
-import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./src/routes/auth.js";
 import postRoutes from "./src/routes/posts.js";
 import usersRoutes from "./src/routes/users.js";
 import uploadRoutes from "./src/routes/upload.js";
-import { fileURLToPath } from "url";
+import { PrismaClient } from "@prisma/client";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;  
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const prisma = new PrismaClient();
 
 
 // CORS settings
