@@ -1,13 +1,11 @@
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import phase2 from "../../prisma/phase2";
 
 
 const AllPosts = () => {
   const [search, setSearch] = useState("");
   const [shuffledPosts, setShuffledPosts] = useState([]);
-  const navigate = useNavigate();
 
 
 
@@ -15,6 +13,7 @@ const shuffleArray = (array) => {
   return array
     .map((item) => ({ ...item, sortKey: Math.random() })) 
     .sort((a, b) => a.sortKey - b.sortKey)               
+    // eslint-disable-next-line no-unused-vars
     .map(({ sortKey, ...item }) => item);               
 };
 

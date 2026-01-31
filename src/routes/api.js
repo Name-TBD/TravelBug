@@ -1,3 +1,5 @@
+const APIURL = import.meta.env.VITE_API_URL || 'https://travelbug-2.onrender.com';
+
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${APIURL}/auth/register`, {

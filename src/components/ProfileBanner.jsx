@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import defaultProfilePic from '../assets/default-profile-pic.jpg';
 
 const ProfileBanner = () => {

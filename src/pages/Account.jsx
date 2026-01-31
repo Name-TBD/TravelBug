@@ -1,9 +1,21 @@
 
-import React from "react";
 import { useEffect, useState } from "react";  
 
 const Account = () => {
-  const [userDetails, setUserDetails] = useState('')
+  const [userDetails, setUserDetails] = useState(null);
+
+  const getUserDetails = async (token) => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com"}/users/me`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch user details.");
+    }
+    return response.json();
+  };
 
 
   useEffect(() => {
@@ -12,7 +24,7 @@ const Account = () => {
       if (!token) return;
 
       try {
-        const details = await getUserDetails(token);  //Need i import getUserDetails above?
+        const details = await getUserDetails(token);
         setUserDetails(details);
       } catch (err) {
         console.error("Error", err)
@@ -36,7 +48,7 @@ return (
         </div>
       ) : (
         <p>You are not logged in.</p>
-      )};
+      )}
     </div>
   </div>
 );
