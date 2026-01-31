@@ -14,7 +14,7 @@ const AccountDetails = () => {
           return;
         }
   
-        const response = await fetch('https://travelbug-2.onrender.com/users/me', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
