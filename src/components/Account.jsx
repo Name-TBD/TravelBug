@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AccountDetails from "./AccountDetails";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";
+
 const Account = () => {
   const [formData, setFormData] = useState({
     registerName: "",
@@ -36,7 +38,7 @@ const Account = () => {
         password: formData.registerPassword,
       });
   
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,7 +71,7 @@ const Account = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
