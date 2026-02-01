@@ -5,7 +5,8 @@ import AccountDetails from "./AccountDetails";
 const API_URL = import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";
 
 const Account = () => {
-  const navigate = useNavigate();
+  const apiUrl =
+    import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";
   const [formData, setFormData] = useState({
     registerName: "",
     registerEmail: "",
@@ -41,7 +42,7 @@ const Account = () => {
         password: formData.registerPassword,
       });
   
-      const response = await fetch(`${API_URL}/auth/register`, {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -77,7 +78,7 @@ const Account = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,8 +97,7 @@ const Account = () => {
           state: { message: "Login successful. Welcome back!" },
         });
       } else {
-        setError(data.message || "Login failed. Please check your credentials.");
-        setStatusMessage("");
+        setError(data.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
