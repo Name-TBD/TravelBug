@@ -92,7 +92,9 @@ const Account = () => {
         setError(null);
         setStatusMessage("Login successful. Redirecting to your profile...");
         window.dispatchEvent(new Event("auth-change"));
-        navigate("/myprofile");
+        navigate("/myprofile", {
+          state: { message: "Login successful. Welcome back!" },
+        });
       } else {
         setError(data.message || "Login failed. Please check your credentials.");
         setStatusMessage("");

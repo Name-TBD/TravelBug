@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CreatePost from "./CreatePost";
 
 const MyProfile = () => {
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileMessage, setProfileMessage] = useState("");
   const [user] = useState({
     userId: 1,
     username: "henry",
@@ -90,8 +92,15 @@ const MyProfile = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (location.state?.message) {
+      setProfileMessage(location.state.message);
+    }
+  }, [location.state]);
+
   return (
     <div className="account-details">
+      {profileMessage && <p className="status-message">{profileMessage}</p>}
       <h2>Welcome, {user.username}!</h2>
       <div className="user-info">
         <p>
