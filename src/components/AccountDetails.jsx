@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://travelbug-2.onrender.com';
+
 const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
@@ -14,7 +16,7 @@ const AccountDetails = () => {
           return;
         }
   
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/me`, {
+        const response = await fetch(`${API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
