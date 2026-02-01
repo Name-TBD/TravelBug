@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AccountDetails from "./AccountDetails";
+
+const API_URL = import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";
 
 const Account = () => {
   const apiUrl =
@@ -14,6 +17,7 @@ const Account = () => {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(null);
+  const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -56,14 +60,17 @@ const Account = () => {
         localStorage.setItem('token', data.token);
         setIsLoggedIn(true);
         setError(null);
+        setStatusMessage("Registration successful. You are now logged in.");
         window.dispatchEvent(new Event("auth-change"));
       } else {
         console.error('Registration failed:', data.error);
         setError(data.error || 'Registration failed.');
+        setStatusMessage("");
       }
     } catch (error) {
       console.error('Error during registration:', error.message);
       setError('An unexpected error occurred. Please try again.');
+      setStatusMessage("");
     }
   };
   
@@ -84,13 +91,18 @@ const Account = () => {
         localStorage.setItem("token", data.token);
         setIsLoggedIn(true);
         setError(null);
+        setStatusMessage("Login successful. Redirecting to your profile...");
         window.dispatchEvent(new Event("auth-change"));
+        navigate("/myprofile", {
+          state: { message: "Login successful. Welcome back!" },
+        });
       } else {
         setError(data.error || "Login failed. Please check your credentials.");
       }
     } catch (error) {
       console.error("Error during login:", error);
       setError("An unexpected error occurred during login.");
+      setStatusMessage("");
     }
   };
 
@@ -98,6 +110,7 @@ const Account = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setError(null);
+    setStatusMessage("You have been logged out successfully.");
     window.dispatchEvent(new Event("auth-change"));
   };
 
@@ -105,6 +118,7 @@ const Account = () => {
     <div className="account">
       {isLoggedIn ? (
         <>
+          {statusMessage && <p className="status-message">{statusMessage}</p>}
           <AccountDetails />
           <button onClick={logOut}>Logout</button>
         </>
@@ -113,6 +127,7 @@ const Account = () => {
           <form onSubmit={register}>
             <h1>New User Registration</h1>
             {error && <p className="error-message">{error}</p>}
+            {statusMessage && <p className="status-message">{statusMessage}</p>}
             <input
               type="text"
               name="registerName"
@@ -149,6 +164,7 @@ const Account = () => {
           <form onSubmit={login}>
             <h1>Login</h1>
             {error && <p className="error-message">{error}</p>}
+            {statusMessage && <p className="status-message">{statusMessage}</p>}
             <input
               type="email"
               name="inputEmail"

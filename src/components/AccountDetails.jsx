@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://travelbug-2.onrender.com';
+
 const AccountDetails = () => {
   const apiUrl =
     import.meta.env.VITE_API_URL || "https://travelbug-2.onrender.com";

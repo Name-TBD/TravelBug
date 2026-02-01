@@ -205,6 +205,25 @@ nav {
   background-color: #6aa8ff; /* Even lighter blue */
 }
 
+.account .status-message {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+.account-details .status-message {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
 /* Utility classes */
 .center {
   text-align: center;
